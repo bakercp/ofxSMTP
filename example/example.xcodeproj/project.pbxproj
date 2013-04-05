@@ -32,6 +32,7 @@
 		E7E077E815D3B6510020DFD4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E715D3B6510020DFD4 /* QTKit.framework */; };
 		E7F985F815E0DEA3003869B5 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F985F515E0DE99003869B5 /* Accelerate.framework */; };
 		FD599B6E170EA001004CE2FD /* ofxSMTPSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD599B6C170EA001004CE2FD /* ofxSMTPSettings.cpp */; };
+		FD599B71170EA13D004CE2FD /* ofxSMTPLoggerChannel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD599B6F170EA13D004CE2FD /* ofxSMTPLoggerChannel.cpp */; };
 		fbe0080c5790a5a348410635cafd36cc /* ofxSMTP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ecb04ddc30417dde8bc18f7e20d6b4e9 /* ofxSMTP.cpp */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +98,8 @@
 		E7F985F515E0DE99003869B5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
 		FD599B6C170EA001004CE2FD /* ofxSMTPSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxSMTPSettings.cpp; path = ../src/ofxSMTPSettings.cpp; sourceTree = "<group>"; };
 		FD599B6D170EA001004CE2FD /* ofxSMTPSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxSMTPSettings.h; path = ../src/ofxSMTPSettings.h; sourceTree = "<group>"; };
+		FD599B6F170EA13D004CE2FD /* ofxSMTPLoggerChannel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxSMTPLoggerChannel.cpp; path = ../src/ofxSMTPLoggerChannel.cpp; sourceTree = "<group>"; };
+		FD599B70170EA13D004CE2FD /* ofxSMTPLoggerChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxSMTPLoggerChannel.h; path = ../src/ofxSMTPLoggerChannel.h; sourceTree = "<group>"; };
 		b21e7e5f548eea92f368040bb1aa2f69 /* tinyxml.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = tinyxml.h; path = ../../../addons/ofxXmlSettings/libs/tinyxml.h; sourceTree = SOURCE_ROOT; };
 		ecb04ddc30417dde8bc18f7e20d6b4e9 /* ofxSMTP.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSMTP.cpp; path = ../../../addons/ofxSMTP/src/ofxSMTP.cpp; sourceTree = SOURCE_ROOT; };
 		fc5da1c87211d4f6377da7199d8c5a1e /* tinyxmlparser.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxmlparser.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxmlparser.cpp; sourceTree = SOURCE_ROOT; };
@@ -174,6 +177,8 @@
 				25190818fca72fb4365a18d305345ad7 /* ofxSMTP.h */,
 				FD599B6C170EA001004CE2FD /* ofxSMTPSettings.cpp */,
 				FD599B6D170EA001004CE2FD /* ofxSMTPSettings.h */,
+				FD599B6F170EA13D004CE2FD /* ofxSMTPLoggerChannel.cpp */,
+				FD599B70170EA13D004CE2FD /* ofxSMTPLoggerChannel.h */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -358,6 +363,7 @@
 				9d44dc88ef9e7991b4a09951e2e4769f /* tinyxmlerror.cpp in Sources */,
 				5a4349e9754d6fa14c0f2a3a1abc30b6 /* tinyxmlparser.cpp in Sources */,
 				FD599B6E170EA001004CE2FD /* ofxSMTPSettings.cpp in Sources */,
+				FD599B71170EA13D004CE2FD /* ofxSMTPLoggerChannel.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
