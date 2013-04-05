@@ -175,10 +175,10 @@ size_t ofxSMTP::getNumQueued() {
 //------------------------------------------------------------------------------
 void ofxSMTP::start() {
     if (!isThreadRunning()){
-        ofLogVerbose("ofxSMTP::send") << "Starting thread.";
+        ofLogVerbose("ofxSMTP::start") << "Starting thread.";
         startThread(true, false);   // blocking, verbose
     }else{
-        ofLogVerbose("ofxSMTP::threadedFunction") << "New message queued, signalling.";
+        ofLogVerbose("ofxSMTP::start") << "New message queued, signalling.";
         condition.signal();
     }
 }
