@@ -1,0 +1,30 @@
+<accounts>
+    <account name="gmail" type="smtp">
+        <host>smtp.gmail.com</host>
+        <port>465</port>
+        <!-- smtp timeout in milliseconds -->
+        <timeout>30000</timeout>
+        <message-send-delay>100</message-send-delay>
+        <authentication>
+            <username>hspb@christopherbaker.net</username>
+            <password>hspb2013</password>
+            <type>AUTH_LOGIN</type>
+            <!-- <type>AUTH_NONE</type> -->
+            <!-- <type>AUTH_CRAM_MD5</type> -->
+            <!-- <type>AUTH_CRAM_SHA1</type> -->
+            <!-- <type>AUTH_PLAIN</type> -->
+        </authentication>
+        <encryption>
+            <type>SSLTLS</type>
+            <!-- <type>NONE</type> -->
+            <!-- <type>STARTTLS</type> -->
+            <context>
+                <!-- VERIFY_STRICT & VERIFY_ONCE are valid, but the same 
+                as VERIFY_RELAXED when used in a client setting -->
+                <verification-mode>VERIFY_RELAXED</verification-mode>
+                <!-- <verification-mode>VERIFY_NONE</verification-mode> -->
+                <ca-location>cacert.pem</ca-location>
+            </context>
+        </encryption>
+    </account>
+</accounts>
