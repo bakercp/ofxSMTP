@@ -125,7 +125,7 @@ public:
     
     ofxSMTPEvents events;
     
-protected:
+private:
     void start();
     
     void threadedFunction();
