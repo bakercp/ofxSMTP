@@ -12,7 +12,7 @@ using Poco::OpenFileException;
 using Poco::Net::FilePartSource;
 using Poco::Net::StringPartSource;
 
-class testApp : public ofBaseApp{
+class ofApp : public ofBaseApp {
 public:
     void setup();
     void draw();
@@ -20,7 +20,8 @@ public:
     
     void keyPressed(int key);
 
-    void messageStatus(ofxSMTPEventArgs& evt);
+    void onDelivery(ofxMailMessage& message);
+    void onException(Exception& exc);
 
     string  recipientEmail;
     string  senderEmail;
