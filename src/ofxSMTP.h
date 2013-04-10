@@ -82,21 +82,12 @@ using Poco::Net::StreamSocket;
 
 typedef ofPtr<MailMessage> ofxMailMessage;
 
-class ofxSMTPEventArgs {
-public:
-    ofxSMTPEventArgs(ofxMailMessage _message, bool _delivered) :
-    message(_message),
-    delivered(_delivered)
-    { }
-    
-    bool delivered;
-    ofxMailMessage message;
-};
-
 class ofxSMTPEvents {
 public:
-    ofEvent<ofxSMTPEventArgs> status;
-    // progress once Poco supports it
+    ofEvent<ofxMailMessage> onDelivery;
+    ofEvent<Exception>      onException;
+    
+    // TODO: progress once Poco supports it
     // http://pocoproject.org/forum/viewtopic.php?f=12&t=5655&p=9788&hilit=smtp#p9788
     
 };

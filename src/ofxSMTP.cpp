@@ -98,8 +98,6 @@ void ofxSMTP::send(ofxMailMessage message) {
 void ofxSMTP::threadedFunction() {
     while(isThreadRunning()) {
         
-        ofxMailMessage outgoingMessage;
-        
         try {
             
             SocketAddress sa(settings.host, settings.port);
@@ -133,61 +131,52 @@ void ofxSMTP::threadedFunction() {
                 while(getNumQueued() > 0 && isThreadRunning()) {
                     unsigned long long timeSinceLastMessageSent = ofGetElapsedTimeMillis() - lastMessageSent;
                     if(timeSinceLastMessageSent > settings.messageSendDelay.milliseconds()) {
-                        mutex.lock();
-                        outgoingMessage = outbox.front();
-                        ofLogVerbose("ofxSMTP::threadedFunction") << "Sending : " << outgoingMessage->getSubject();;
-                        outbox.pop();
-                        mutex.unlock();
-                        sessionPtr->sendMessage(*outgoingMessage.get());
+                        ofScopedLock lock(mutex);
+                        ofLogVerbose("ofxSMTP::threadedFunction") << "Sending : " << outbox.front()->getSubject();;
+                        sessionPtr->sendMessage(*outbox.front());
                         lastMessageSent = ofGetElapsedTimeMillis();
-                        ofxSMTPEventArgs args(outgoingMessage,true);
-                        ofNotifyEvent(events.status, args);
+                        ofNotifyEvent(events.onDelivery, outbox.front(), this);
+                        outbox.pop();
                     } else {
                         yield();
                     }
                 }
-
+                
                 ofLogVerbose("ofxSMTP::threadedFunction") << "Closing session.";
 
                 sessionPtr->close();
                 delete sessionPtr;
                 delete socketPtr;
-            } catch (const SMTPException& exc) {
+            } catch (SMTPException& exc) {
                 ofLogError("ofxSMTP::threadedFunction") << exc.name() << " : " << exc.displayText();
                 sessionPtr->close();
                 delete sessionPtr;
                 delete socketPtr;
-                
-                ofxSMTPEventArgs args(outgoingMessage,false);
-                ofNotifyEvent(events.status, args);
+                ofNotifyEvent(events.onException, exc, this);
             }
-        } catch (const SSLException &exc) {
+        } catch (SSLException &exc) {
             ofLogError("ofxSMTP::threadedFunction") << exc.name() << " : " << exc.displayText();
 
             if(exc.displayText().find("SSL3_GET_SERVER_CERTIFICATE") != string::npos) {
                 ofLogError("ofxSMTP::threadedFunction") << "\t\t" << "This may be because you asked your SSL context to verify the server's certificate, but your certificate authority (ca) file is missing.";
             } 
             
-            ofxSMTPEventArgs args(outgoingMessage,false);
-            ofNotifyEvent(events.status, args);
-        } catch (const NetException &exc) {
+            ofNotifyEvent(events.onException, exc, this);
+        } catch (NetException &exc) {
             ofLogError("ofxSMTP::threadedFunction") << exc.name() << " : " << exc.displayText();
-            ofxSMTPEventArgs args(outgoingMessage,false);
-            ofNotifyEvent(events.status, args);
-        } catch (const Exception &exc) {
+            ofNotifyEvent(events.onException, exc, this);
+        } catch (Exception &exc) {
             ofLogError("ofxSMTP::threadedFunction") << exc.name() << " : " << exc.displayText();
-            ofxSMTPEventArgs args(outgoingMessage,false);
-            ofNotifyEvent(events.status, args);
-        } catch(const std::exception& exc) {
+            ofNotifyEvent(events.onException, exc, this);
+        } catch (exception& exc) {
             ofLogError("ofxSMTP::threadedFunction") << exc.what();
-            ofxSMTPEventArgs args(outgoingMessage,false);
-            ofNotifyEvent(events.status, args);
+            Exception e(exc.what());
+            ofNotifyEvent(events.onException, e, this);
         }
         
         ofLogVerbose("ofxSMTP::threadedFunction") << "Waiting for more messages.";
-        mutex.lock();
+        ofScopedLock lock(mutex);
         condition.wait(mutex);
-        mutex.unlock();
     }
 }
 
