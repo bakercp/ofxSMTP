@@ -71,6 +71,6 @@ void ofApp::onDelivery(ofxMailMessage& message) {
 }
 
 //------------------------------------------------------------------------------
-void ofApp::onException(Exception& exc) {
+void ofApp::onException(const Exception& exc) {
     ofLogError("ofApp::onException") << exc.displayText();
 }

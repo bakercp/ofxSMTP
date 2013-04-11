@@ -84,8 +84,8 @@ typedef ofPtr<MailMessage> ofxMailMessage;
 
 class ofxSMTPEvents {
 public:
-    ofEvent<ofxMailMessage> onDelivery;
-    ofEvent<Exception>      onException;
+    ofEvent<ofxMailMessage>  onDelivery;
+    ofEvent<const Exception> onException;
     
     // TODO: progress once Poco supports it
     // http://pocoproject.org/forum/viewtopic.php?f=12&t=5655&p=9788&hilit=smtp#p9788

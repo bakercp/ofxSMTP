@@ -21,7 +21,7 @@ public:
     void keyPressed(int key);
 
     void onDelivery(ofxMailMessage& message);
-    void onException(Exception& exc);
+    void onException(const Exception& exc);
 
     string  recipientEmail;
     string  senderEmail;
