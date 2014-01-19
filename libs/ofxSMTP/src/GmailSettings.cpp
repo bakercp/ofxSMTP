@@ -24,17 +24,32 @@
 
 
 
-#include "Poco/Exception.h"
-#include "Poco/Net/FilePartSource.h"
-#include "Poco/Net/StringPartSource.h"
-#include "Poco/DateTimeFormatter.h"
-
-#include "ofxCryptoUtils.h"
-
-#include "ofx/SMTP/Events.h"
-#include "ofx/SMTP/Client.h"
-#include "ofx/SMTP/Credentials.h"
-#include "ofx/SMTP/Encryption.h"
 #include "ofx/SMTP/GmailSettings.h"
-#include "ofx/SMTP/Settings.h"
-#include "ofx/SMTP/Types.h"
+
+
+
+namespace ofx {
+namespace SMTP {
+
+
+const std::string GmailSettings::DEFAULT_GMAIL_HOST = "smtp.gmail.com";
+
+
+GmailSettings::GmailSettings(const std::string& username,
+                             const std::string& password):
+    SSLTLSSettings(DEFAULT_GMAIL_HOST,
+                   DEFAULT_GMAIL_PORT,
+                   Credentials(username,
+                               password,
+                               Poco::Net::SMTPClientSession::AUTH_LOGIN))
+{
+}
+
+
+GmailSettings::~GmailSettings()
+{
+}
+
+
+} } // namespace ofx::SMTP
+

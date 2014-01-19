@@ -24,17 +24,42 @@
 
 
 
-#include "Poco/Exception.h"
-#include "Poco/Net/FilePartSource.h"
-#include "Poco/Net/StringPartSource.h"
-#include "Poco/DateTimeFormatter.h"
+#pragma once
 
-#include "ofxCryptoUtils.h"
 
-#include "ofx/SMTP/Events.h"
-#include "ofx/SMTP/Client.h"
-#include "ofx/SMTP/Credentials.h"
-#include "ofx/SMTP/Encryption.h"
-#include "ofx/SMTP/GmailSettings.h"
 #include "ofx/SMTP/Settings.h"
-#include "ofx/SMTP/Types.h"
+
+
+namespace ofx {
+namespace SMTP {
+
+
+class GmailSettings: public SSLTLSSettings
+    /// \brief A convenience settings file for Gmail.
+    /// \details Gmail also works with port 587 and STARTTTLS encryption.
+    ///         Since port 587 is often blocked, we prefer 465 with SSL/TLS.
+    ///         To use alternative settings, manually configure your client
+    ///         with SMTPSSLTLSSettings.
+{
+public:
+    GmailSettings(const std::string& username,
+                  const std::string& password);
+        ///< \brief Create a GmailSettings object.
+        ///< \param username The account username.
+        ///< \param password The account password.
+
+    virtual ~GmailSettings();
+        ///< \brief Destroy the GmailSettings.
+
+    static const std::string DEFAULT_GMAIL_HOST;
+        ///< \brief The default Gmail host.
+
+    enum
+    {
+        DEFAULT_GMAIL_PORT = 465
+            ///< \brief The default Gmail port.
+    };
+};
+
+
+} } // namespace ofx::SMTP

@@ -1,0 +1,3 @@
+ofxCryptoUtils
+ofxSMTP
+ofxXmlSettings

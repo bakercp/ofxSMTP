@@ -3,13 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0b4e1ff18c0951d5b619b9a12694e623 /* Client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = cfddc1394a0686dd8d0ba59911d38ba3 /* Client.cpp */; };
+		36c59175780818f23d2bbe5c7e77e993 /* OpenSSLManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = e4457ee7e022d967c067fd2af097c111 /* OpenSSLManager.cpp */; };
+		4b14cedcc7195a4d1f8e28b4f9635a89 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19c22cd05d10f78b32ff80c6be3a9385 /* ofApp.cpp */; };
 		5a4349e9754d6fa14c0f2a3a1abc30b6 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = fc5da1c87211d4f6377da7199d8c5a1e /* tinyxmlparser.cpp */; };
 		63b57ac5bf4ef088491e0317dbb2ecaa /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50df87d612c5aae17aafa6c02c6bc570 /* ofxXmlSettings.cpp */; };
+		872fd423ce9cf8a286cb494a25d1b3c5 /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1e7e88cfb4dbd1e4554e1a23e7ca6061 /* Settings.cpp */; };
 		933a2227713c720ceff80fd967d0a8ee /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2b40eda85beb63e46785bc299a638898 /* tinyxml.cpp */; };
+		9b385ec1bad09c5f5b69f760372dc220 /* GmailSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222517a4a846c3fb28466dc0a3e16d91 /* GmailSettings.cpp */; };
 		9d44dc88ef9e7991b4a09951e2e4769f /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832bdc407620cdba568b713d2252c43c /* tinyxmlerror.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
@@ -23,7 +28,6 @@
 		E45BE9830E8CC7DD009D7055 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9790E8CC7DD009D7055 /* OpenGL.framework */; };
 		E45BE9840E8CC7DD009D7055 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */; };
 		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
-		E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
 		E4C2424710CC5A17004149E2 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424410CC5A17004149E2 /* AppKit.framework */; };
 		E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424510CC5A17004149E2 /* Cocoa.framework */; };
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
@@ -31,9 +35,9 @@
 		E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */; };
 		E7E077E815D3B6510020DFD4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E715D3B6510020DFD4 /* QTKit.framework */; };
 		E7F985F815E0DEA3003869B5 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F985F515E0DE99003869B5 /* Accelerate.framework */; };
-		FD599B6E170EA001004CE2FD /* ofxSMTPSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD599B6C170EA001004CE2FD /* ofxSMTPSettings.cpp */; };
-		FD599B71170EA13D004CE2FD /* ofxSMTPLoggerChannel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD599B6F170EA13D004CE2FD /* ofxSMTPLoggerChannel.cpp */; };
-		fbe0080c5790a5a348410635cafd36cc /* ofxSMTP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ecb04ddc30417dde8bc18f7e20d6b4e9 /* ofxSMTP.cpp */; };
+		a21cedcfdd2e8582d1be0550e0952f27 /* Credentials.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53748eadc10733de007114f015c05acb /* Credentials.cpp */; };
+		e9925ac3a29179ed3db898de289b2dac /* LoggerChannel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29434b2b7e45bf019d803f55f6aef125 /* LoggerChannel.cpp */; };
+		f031a48fd0384e2fff0737f71ee223f8 /* Encryption.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2aa8a66d2cbc763e754fb2868eea2d2c /* Encryption.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,10 +72,21 @@
 
 /* Begin PBXFileReference section */
 		01dcc0911400f9acf5b65578af4ec8f9 /* ofxXmlSettings.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxXmlSettings.h; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.h; sourceTree = SOURCE_ROOT; };
+		17fbbabf943a2dced19c74e3b454bf6d /* Settings.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Settings.h; path = ../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx/SMTP/Settings.h; sourceTree = SOURCE_ROOT; };
+		19c22cd05d10f78b32ff80c6be3a9385 /* ofApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofApp.cpp; path = src/ofApp.cpp; sourceTree = SOURCE_ROOT; };
+		1e7e88cfb4dbd1e4554e1a23e7ca6061 /* Settings.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Settings.cpp; path = ../../../addons/ofxSMTP/libs/ofxSMTP/src/Settings.cpp; sourceTree = SOURCE_ROOT; };
+		222517a4a846c3fb28466dc0a3e16d91 /* GmailSettings.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = GmailSettings.cpp; path = ../../../addons/ofxSMTP/libs/ofxSMTP/src/GmailSettings.cpp; sourceTree = SOURCE_ROOT; };
 		25190818fca72fb4365a18d305345ad7 /* ofxSMTP.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSMTP.h; path = ../../../addons/ofxSMTP/src/ofxSMTP.h; sourceTree = SOURCE_ROOT; };
+		29434b2b7e45bf019d803f55f6aef125 /* LoggerChannel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = LoggerChannel.cpp; path = ../../../addons/ofxSMTP/libs/ofxSMTP/src/LoggerChannel.cpp; sourceTree = SOURCE_ROOT; };
+		2aa8a66d2cbc763e754fb2868eea2d2c /* Encryption.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Encryption.cpp; path = ../../../addons/ofxSMTP/libs/ofxSMTP/src/Encryption.cpp; sourceTree = SOURCE_ROOT; };
 		2b40eda85beb63e46785bc299a638898 /* tinyxml.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxml.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxml.cpp; sourceTree = SOURCE_ROOT; };
 		50df87d612c5aae17aafa6c02c6bc570 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxXmlSettings.cpp; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SOURCE_ROOT; };
+		53748eadc10733de007114f015c05acb /* Credentials.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Credentials.cpp; path = ../../../addons/ofxSMTP/libs/ofxSMTP/src/Credentials.cpp; sourceTree = SOURCE_ROOT; };
+		637dc9562d16b8c1f8d20eb006cb1f6f /* OpenSSLManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = OpenSSLManager.h; path = ../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils/include/ofx/OpenSSLManager.h; sourceTree = SOURCE_ROOT; };
+		70723dc4de545ac6b7c7ab213e994ff1 /* GmailSettings.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = GmailSettings.h; path = ../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx/SMTP/GmailSettings.h; sourceTree = SOURCE_ROOT; };
+		791dd1a1b93c902191abed3b8f78134f /* Types.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Types.h; path = ../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx/SMTP/Types.h; sourceTree = SOURCE_ROOT; };
 		832bdc407620cdba568b713d2252c43c /* tinyxmlerror.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxmlerror.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxmlerror.cpp; sourceTree = SOURCE_ROOT; };
+		84f6287fa54b66c746947875f6690182 /* ofApp.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofApp.h; path = src/ofApp.h; sourceTree = SOURCE_ROOT; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -83,10 +98,8 @@
 		E45BE9770E8CC7DD009D7055 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		E45BE9790E8CC7DD009D7055 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
-		E4B69B5B0A3A1756003C02F2 /* exampleDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = exampleDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4B69B5B0A3A1756003C02F2 /* example-advancedDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "example-advancedDebug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
-		E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofApp.cpp; path = src/ofApp.cpp; sourceTree = SOURCE_ROOT; };
-		E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ofApp.h; path = src/ofApp.h; sourceTree = SOURCE_ROOT; };
 		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
 		E4C2424410CC5A17004149E2 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		E4C2424510CC5A17004149E2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -96,12 +109,15 @@
 		E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		E7E077E715D3B6510020DFD4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		E7F985F515E0DE99003869B5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
-		FD599B6C170EA001004CE2FD /* ofxSMTPSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxSMTPSettings.cpp; path = ../src/ofxSMTPSettings.cpp; sourceTree = "<group>"; };
-		FD599B6D170EA001004CE2FD /* ofxSMTPSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxSMTPSettings.h; path = ../src/ofxSMTPSettings.h; sourceTree = "<group>"; };
-		FD599B6F170EA13D004CE2FD /* ofxSMTPLoggerChannel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxSMTPLoggerChannel.cpp; path = ../src/ofxSMTPLoggerChannel.cpp; sourceTree = "<group>"; };
-		FD599B70170EA13D004CE2FD /* ofxSMTPLoggerChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxSMTPLoggerChannel.h; path = ../src/ofxSMTPLoggerChannel.h; sourceTree = "<group>"; };
+		FD86417D188AF36200FE2180 /* Events.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Events.h; path = ../libs/ofxSMTP/include/ofx/SMTP/Events.h; sourceTree = "<group>"; };
+		FD864184188B6C9B00FE2180 /* ofxCryptoUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxCryptoUtils.h; sourceTree = "<group>"; };
 		b21e7e5f548eea92f368040bb1aa2f69 /* tinyxml.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = tinyxml.h; path = ../../../addons/ofxXmlSettings/libs/tinyxml.h; sourceTree = SOURCE_ROOT; };
-		ecb04ddc30417dde8bc18f7e20d6b4e9 /* ofxSMTP.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSMTP.cpp; path = ../../../addons/ofxSMTP/src/ofxSMTP.cpp; sourceTree = SOURCE_ROOT; };
+		cfddc1394a0686dd8d0ba59911d38ba3 /* Client.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Client.cpp; path = ../../../addons/ofxSMTP/libs/ofxSMTP/src/Client.cpp; sourceTree = SOURCE_ROOT; };
+		d8b78e6112e4294c55eaad107bd45e9b /* Client.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Client.h; path = ../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx/SMTP/Client.h; sourceTree = SOURCE_ROOT; };
+		e4457ee7e022d967c067fd2af097c111 /* OpenSSLManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = OpenSSLManager.cpp; path = ../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils/src/OpenSSLManager.cpp; sourceTree = SOURCE_ROOT; };
+		e71c9bfedd2c744a1d99824284bf35c2 /* Credentials.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Credentials.h; path = ../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx/SMTP/Credentials.h; sourceTree = SOURCE_ROOT; };
+		ea1cc58977d43680bf43fda2eb613a43 /* LoggerChannel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = LoggerChannel.h; path = ../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx/SMTP/LoggerChannel.h; sourceTree = SOURCE_ROOT; };
+		f7bcf27ba9b145d47587d8b7043c66da /* Encryption.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Encryption.h; path = ../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx/SMTP/Encryption.h; sourceTree = SOURCE_ROOT; };
 		fc5da1c87211d4f6377da7199d8c5a1e /* tinyxmlparser.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxmlparser.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxmlparser.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -137,8 +153,26 @@
 			isa = PBXGroup;
 			children = (
 				7279ef994c860f1eae081ab0541a22b9 /* src */,
+				6b803d146f1d7569587f8446e4761014 /* libs */,
 			);
 			name = ofxSMTP;
+			sourceTree = "<group>";
+		};
+		137ae66492be089b20a7379568c021ac /* src */ = {
+			isa = PBXGroup;
+			children = (
+				e4457ee7e022d967c067fd2af097c111 /* OpenSSLManager.cpp */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		1de5bd8b9eb367d8bd26132eafdd4e87 /* ofxCryptoUtils */ = {
+			isa = PBXGroup;
+			children = (
+				47aec3f3aa6595ce568bdf5df58fe277 /* include */,
+				137ae66492be089b20a7379568c021ac /* src */,
+			);
+			name = ofxCryptoUtils;
 			sourceTree = "<group>";
 		};
 		1f4fb5c423662b96adfdcc0badec1cb0 /* ofxXmlSettings */ = {
@@ -148,6 +182,38 @@
 				6e54289412d2d94f45a051132369530c /* libs */,
 			);
 			name = ofxXmlSettings;
+			sourceTree = "<group>";
+		};
+		3343c588a31f2126581c560ec5e9f943 /* ofx */ = {
+			isa = PBXGroup;
+			children = (
+				637dc9562d16b8c1f8d20eb006cb1f6f /* OpenSSLManager.h */,
+			);
+			name = ofx;
+			sourceTree = "<group>";
+		};
+		47aec3f3aa6595ce568bdf5df58fe277 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				3343c588a31f2126581c560ec5e9f943 /* ofx */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		4958d20bbb9884f91379395c6bbe853e /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				1de5bd8b9eb367d8bd26132eafdd4e87 /* ofxCryptoUtils */,
+			);
+			name = libs;
+			sourceTree = "<group>";
+		};
+		6b803d146f1d7569587f8446e4761014 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				f75c3dd338f598f61fe2f8da579b1550 /* ofxSMTP */,
+			);
+			name = libs;
 			sourceTree = "<group>";
 		};
 		6e54289412d2d94f45a051132369530c /* libs */ = {
@@ -173,19 +239,60 @@
 		7279ef994c860f1eae081ab0541a22b9 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				ecb04ddc30417dde8bc18f7e20d6b4e9 /* ofxSMTP.cpp */,
 				25190818fca72fb4365a18d305345ad7 /* ofxSMTP.h */,
-				FD599B6C170EA001004CE2FD /* ofxSMTPSettings.cpp */,
-				FD599B6D170EA001004CE2FD /* ofxSMTPSettings.h */,
-				FD599B6F170EA13D004CE2FD /* ofxSMTPLoggerChannel.cpp */,
-				FD599B70170EA13D004CE2FD /* ofxSMTPLoggerChannel.h */,
 			);
 			name = src;
+			sourceTree = "<group>";
+		};
+		7ae1ca28212ff05e85ae4592d6af06ac /* ofx */ = {
+			isa = PBXGroup;
+			children = (
+				9603b3b569314b1a074e019ae73b7193 /* SMTP */,
+			);
+			name = ofx;
+			sourceTree = "<group>";
+		};
+		9603b3b569314b1a074e019ae73b7193 /* SMTP */ = {
+			isa = PBXGroup;
+			children = (
+				FD86417D188AF36200FE2180 /* Events.h */,
+				d8b78e6112e4294c55eaad107bd45e9b /* Client.h */,
+				e71c9bfedd2c744a1d99824284bf35c2 /* Credentials.h */,
+				f7bcf27ba9b145d47587d8b7043c66da /* Encryption.h */,
+				70723dc4de545ac6b7c7ab213e994ff1 /* GmailSettings.h */,
+				ea1cc58977d43680bf43fda2eb613a43 /* LoggerChannel.h */,
+				17fbbabf943a2dced19c74e3b454bf6d /* Settings.h */,
+				791dd1a1b93c902191abed3b8f78134f /* Types.h */,
+			);
+			name = SMTP;
+			sourceTree = "<group>";
+		};
+		96f0a665b7eb6c25ae6bb373cac79228 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				cfddc1394a0686dd8d0ba59911d38ba3 /* Client.cpp */,
+				53748eadc10733de007114f015c05acb /* Credentials.cpp */,
+				2aa8a66d2cbc763e754fb2868eea2d2c /* Encryption.cpp */,
+				222517a4a846c3fb28466dc0a3e16d91 /* GmailSettings.cpp */,
+				29434b2b7e45bf019d803f55f6aef125 /* LoggerChannel.cpp */,
+				1e7e88cfb4dbd1e4554e1a23e7ca6061 /* Settings.cpp */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		9cb96b0ccba05f2227700d4cc6e0752e /* ofxCryptoUtils */ = {
+			isa = PBXGroup;
+			children = (
+				FD864183188B6C8E00FE2180 /* src */,
+				4958d20bbb9884f91379395c6bbe853e /* libs */,
+			);
+			name = ofxCryptoUtils;
 			sourceTree = "<group>";
 		};
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				9cb96b0ccba05f2227700d4cc6e0752e /* ofxCryptoUtils */,
 				088b19a331a0376f1ac195271a560c67 /* ofxSMTP */,
 				1f4fb5c423662b96adfdcc0badec1cb0 /* ofxXmlSettings */,
 			);
@@ -248,7 +355,7 @@
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
 				E45BE5980E8CC70C009D7055 /* frameworks */,
-				E4B69B5B0A3A1756003C02F2 /* exampleDebug.app */,
+				E4B69B5B0A3A1756003C02F2 /* example-advancedDebug.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -256,8 +363,8 @@
 			isa = PBXGroup;
 			children = (
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
-				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
-				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
+				19c22cd05d10f78b32ff80c6be3a9385 /* ofApp.cpp */,
+				84f6287fa54b66c746947875f6690182 /* ofApp.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -271,12 +378,38 @@
 			name = openFrameworks;
 			sourceTree = "<group>";
 		};
+		FD864183188B6C8E00FE2180 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				FD864184188B6C9B00FE2180 /* ofxCryptoUtils.h */,
+			);
+			name = src;
+			path = ../../ofxCryptoUtils/src;
+			sourceTree = "<group>";
+		};
+		ee7bd4cf72d466b3549237998a96deeb /* include */ = {
+			isa = PBXGroup;
+			children = (
+				7ae1ca28212ff05e85ae4592d6af06ac /* ofx */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		f75c3dd338f598f61fe2f8da579b1550 /* ofxSMTP */ = {
+			isa = PBXGroup;
+			children = (
+				ee7bd4cf72d466b3549237998a96deeb /* include */,
+				96f0a665b7eb6c25ae6bb373cac79228 /* src */,
+			);
+			name = ofxSMTP;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E4B69B5A0A3A1756003C02F2 /* example */ = {
+		E4B69B5A0A3A1756003C02F2 /* example-advanced */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "example" */;
+			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "example-advanced" */;
 			buildPhases = (
 				E4B69B580A3A1756003C02F2 /* Sources */,
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
@@ -288,9 +421,9 @@
 			dependencies = (
 				E4EEB9AC138B136A00A80321 /* PBXTargetDependency */,
 			);
-			name = example;
+			name = "example-advanced";
 			productName = myOFApp;
-			productReference = E4B69B5B0A3A1756003C02F2 /* exampleDebug.app */;
+			productReference = E4B69B5B0A3A1756003C02F2 /* example-advancedDebug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -298,8 +431,11 @@
 /* Begin PBXProject section */
 		E4B69B4C0A3A1720003C02F2 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "example" */;
-			compatibilityVersion = "Xcode 2.4";
+			attributes = {
+				LastUpgradeCheck = 0460;
+			};
+			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "example-advanced" */;
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -319,7 +455,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				E4B69B5A0A3A1756003C02F2 /* example */,
+				E4B69B5A0A3A1756003C02F2 /* example-advanced */,
 			);
 		};
 /* End PBXProject section */
@@ -346,7 +482,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp -f ../../../libs/fmodex/lib/osx/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/libfmodex.dylib\"; install_name_tool -change ./libfmodex.dylib @executable_path/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME\";";
+			shellScript = "cp -f ../../../libs/fmodex/lib/osx/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/libfmodex.dylib\"; install_name_tool -change ./libfmodex.dylib @executable_path/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME\";\nmkdir -p \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/\"\ncp -f \"$ICON_FILE\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -356,14 +492,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
-				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
-				fbe0080c5790a5a348410635cafd36cc /* ofxSMTP.cpp in Sources */,
+				4b14cedcc7195a4d1f8e28b4f9635a89 /* ofApp.cpp in Sources */,
+				36c59175780818f23d2bbe5c7e77e993 /* OpenSSLManager.cpp in Sources */,
+				0b4e1ff18c0951d5b619b9a12694e623 /* Client.cpp in Sources */,
+				a21cedcfdd2e8582d1be0550e0952f27 /* Credentials.cpp in Sources */,
+				f031a48fd0384e2fff0737f71ee223f8 /* Encryption.cpp in Sources */,
+				9b385ec1bad09c5f5b69f760372dc220 /* GmailSettings.cpp in Sources */,
+				e9925ac3a29179ed3db898de289b2dac /* LoggerChannel.cpp in Sources */,
+				872fd423ce9cf8a286cb494a25d1b3c5 /* Settings.cpp in Sources */,
 				63b57ac5bf4ef088491e0317dbb2ecaa /* ofxXmlSettings.cpp in Sources */,
 				933a2227713c720ceff80fd967d0a8ee /* tinyxml.cpp in Sources */,
 				9d44dc88ef9e7991b4a09951e2e4769f /* tinyxmlerror.cpp in Sources */,
 				5a4349e9754d6fa14c0f2a3a1abc30b6 /* tinyxmlparser.cpp in Sources */,
-				FD599B6E170EA001004CE2FD /* ofxSMTPSettings.cpp in Sources */,
-				FD599B71170EA13D004CE2FD /* ofxSMTPLoggerChannel.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,6 +523,7 @@
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(NATIVE_ARCH)";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
@@ -401,11 +542,23 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
+					../../../addons/ofxCryptoUtils/libs,
+					../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils,
+					../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils/include,
+					../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils/include/ofx,
+					../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils/src,
+					../../../addons/ofxCryptoUtils/src,
 					../../../addons/ofxSMTP/libs,
+					../../../addons/ofxSMTP/libs/ofxSMTP,
+					../../../addons/ofxSMTP/libs/ofxSMTP/include,
+					../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx,
+					../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx/SMTP,
+					../../../addons/ofxSMTP/libs/ofxSMTP/src,
 					../../../addons/ofxSMTP/src,
 					../../../addons/ofxXmlSettings/libs,
 					../../../addons/ofxXmlSettings/src,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
@@ -420,6 +573,7 @@
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(NATIVE_ARCH)";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
@@ -439,11 +593,23 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
+					../../../addons/ofxCryptoUtils/libs,
+					../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils,
+					../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils/include,
+					../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils/include/ofx,
+					../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils/src,
+					../../../addons/ofxCryptoUtils/src,
 					../../../addons/ofxSMTP/libs,
+					../../../addons/ofxSMTP/libs/ofxSMTP,
+					../../../addons/ofxSMTP/libs/ofxSMTP/include,
+					../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx,
+					../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx/SMTP,
+					../../../addons/ofxSMTP/libs/ofxSMTP/src,
 					../../../addons/ofxSMTP/src,
 					../../../addons/ofxXmlSettings/libs,
 					../../../addons/ofxXmlSettings/src,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
@@ -456,6 +622,7 @@
 		E4B69B600A3A1757003C02F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -463,11 +630,10 @@
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../libs/glut/lib/osx\"";
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = NONE;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				ICON = "$(ICON_NAME_DEBUG)";
+				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
 				INFOPLIST_FILE = "openFrameworks-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
@@ -534,7 +700,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
 				WRAPPER_EXTENSION = app;
 			};
@@ -543,17 +708,17 @@
 		E4B69B610A3A1757003C02F2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../libs/glut/lib/osx\"";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = NONE;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				ICON = "$(ICON_NAME_RELEASE)";
+				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
 				INFOPLIST_FILE = "openFrameworks-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
@@ -620,7 +785,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -629,7 +793,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "example" */ = {
+		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "example-advanced" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B4E0A3A1720003C02F2 /* Debug */,
@@ -638,7 +802,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "example" */ = {
+		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "example-advanced" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B600A3A1757003C02F2 /* Debug */,

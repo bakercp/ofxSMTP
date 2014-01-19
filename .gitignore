@@ -1,3 +1,7 @@
+docs/html
+docs/tagfile.xml
+
+
 *.mode1v3
 
 # xcode

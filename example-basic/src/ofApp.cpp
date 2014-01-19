@@ -23,31 +23,44 @@
 // =============================================================================
 
 
-#include "ofxSMTPLoggerChannel.h"
+#include "ofApp.h"
+
 
 //------------------------------------------------------------------------------
-ofSMTPLoggerChannel::ofSMTPLoggerChannel() { }
-
-//------------------------------------------------------------------------------
-ofSMTPLoggerChannel::~ofSMTPLoggerChannel() { }
-
-//------------------------------------------------------------------------------
-void ofSMTPLoggerChannel::ofSMTPLoggerChannel::log(ofLogLevel level,
-                                                   const string & module,
-                                                   const string & message) {
-    // not yet implemented
+void ofApp::setup()
+{
+    ofxSMTPGmailSettings settings("USERNAME@gmail.com","PASSWORD");
+    smtp.setup(settings);
 }
 
 //------------------------------------------------------------------------------
-void ofSMTPLoggerChannel::ofSMTPLoggerChannel::log(ofLogLevel logLevel,
-                                                   const string & module,
-                                                   const char* format, ...) {
-    // not yet implemented
+void ofApp::draw()
+{
+    ofBackground(80);
+    ofDrawBitmapStringHighlight("ofxSMTP: There are " + ofToString(smtp.getNumQueued()) + " messages in your outbox.", 10,20);
 }
 
 //------------------------------------------------------------------------------
-void ofSMTPLoggerChannel::ofSMTPLoggerChannel::log(ofLogLevel logLevel,
-                                                   const string & module,
-                                                   const char* format, va_list args) {
-    // not yet implemented
+void ofApp::keyPressed(int key)
+{
+    if(key == ' ')
+    {
+        // simple send
+        smtp.send("recipient@example.com",
+                  "USERNAME@gmail.com",
+                  "Sent using ofxSMTP",
+                  "Hello world!");
+    }
+}
+
+//------------------------------------------------------------------------------
+void ofApp::onDelivery(ofxMailMessage& message)
+{
+    ofLogNotice("ofApp::onDelivery") << "Message Sent: " << message->getSubject();
+}
+
+//------------------------------------------------------------------------------
+void ofApp::onException(const Exception& exc)
+{
+    ofLogError("ofApp::onException") << exc.displayText();
 }
