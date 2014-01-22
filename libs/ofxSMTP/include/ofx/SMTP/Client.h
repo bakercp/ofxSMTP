@@ -106,13 +106,12 @@ private:
 
     Poco::Event _messageReady;
         ///< \brief The send condition.
-    
-    // SSL Related
-    Poco::Net::Context::Ptr _pContext;
-        ///< \brief the SSL context.
+
+    Poco::Net::Session::Ptr _pSession;
+        ///< \brief A session pointer to be set and reused if permitted.
 
     bool _isInited;
-    bool _isSSLInited;
+        ///< \brief Is the program initalized via setup?
 
 };
 

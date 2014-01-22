@@ -35,7 +35,6 @@
 #include "ofUtils.h"
 #include "ofxXmlSettings.h"
 #include "ofx/SMTP/Credentials.h"
-#include "ofx/SMTP/Encryption.h"
 
 
 namespace ofx {
@@ -46,10 +45,19 @@ class Settings
     /// \brief A base class representing SMTP Client settings.
 {
 public:
+    enum EncryptionType
+        ///< \brief The encryption type.
+    {
+        NONE,   ///< \brief Use no encyption.
+        SSLTLS, ///< \brief Use an SSLTLS strategy.
+        STARTTLS ///< \brief Use a STARTTLS connection.
+    };
+
+
     Settings(const std::string& host = "",
              unsigned short port = DEFAULT_SMTP_PORT,
              Credentials credentials = Credentials(),
-             Encryption encryption = Encryption(),
+             EncryptionType encryptionType = NONE,
              Poco::Timespan timeout = DEFAULT_TIMEOUT,
              Poco::Timespan messageSendDelay = DEFAULT_MESSAGE_SEND_DELAY);
         ///< \brief Create SMTP Settings.
@@ -72,7 +80,7 @@ public:
     Credentials getCredentials() const;
         ///< \returns The SMTP Credential settings.
 
-    Encryption getEncryption() const;
+    EncryptionType getEncryptionType() const;
         ///< \returns The SMTP Encryption settings.
 
     Poco::Timespan getTimeout() const;
@@ -118,7 +126,7 @@ private:
     Credentials _credentials;
         ///< \brief Credentials settings.
 
-    Encryption  _encryption;
+    EncryptionType  _encryptionType;
         ///< \brief Encryption settings.
 
     Poco::Timespan _timeout;

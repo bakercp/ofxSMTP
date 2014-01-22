@@ -28,29 +28,38 @@
 
 void ofApp::setup()
 {
-    recipientEmail = "bakercp@gmail.com";
-    senderEmail    = "Christopher Baker <bakercp@gmail.com>"; // you can also include your display name
+    // Register SSL context error callbacks.
+    ofSSLManager::registerClientEvents(this);
 
-    // you can load settings from an xml file or element
+    // Set the name of the recipient for this example.
+    recipientEmail = "info@christopherbaker.net";
+
+    // Set the sender email and display name.
+    senderEmail    = "Christopher Baker <info@christopherbaker.net>";
+
+    // Load credentials and account settings from an xml file or element.
     SMTP::Settings settings = SMTP::Settings::loadFromXML("example-smtp-account-settings.xml",
                                                           "gmail");
     
     // Or use the simple gmail settings (also works for any gmail based account)
-    // ofxSMTPGmailSettings settings("USERNAME@gmail.com","PASSWORD");
-    
-    // See ofxSMTPSettings for extensive configuration options.
-    
+    // SMTP::GmailSettings settings("USERNAME@gmail.com","PASSWORD");
+
+    // See SMTP::Settings for extensive configuration options.
+
+    // Pass the settings to the client.
     smtp.setup(settings);
 
-    // you can also register for message delivery (or failure) events
+    // Register event callbacks for message delivery (or failure) events
     ofAddListener(smtp.events.onSMTPDelivery, this, &ofApp::onSMTPDelivery);
     ofAddListener(smtp.events.onSMTPException, this, &ofApp::onSMTPException);
-
 }
 
 
 void ofApp::exit()
 {
+    // It is recommended to remove event callbacks, if the SMTP::Client will
+    // outlast the listener class, so it is not absolutely required in this
+    // case, but it is a good practice none-the-less.
     ofRemoveListener(smtp.events.onSMTPDelivery, this, &ofApp::onSMTPDelivery);
     ofRemoveListener(smtp.events.onSMTPException, this, &ofApp::onSMTPException);
 }
@@ -58,6 +67,7 @@ void ofApp::exit()
 
 void ofApp::draw()
 {
+    // Print some information about the state of the outbox.
     ofBackground(80);
     ofDrawBitmapStringHighlight("ofxSMTP: There are " + ofToString(smtp.getOutboxSize()) + " messages in your outbox.", 10,20);
 }
@@ -70,35 +80,32 @@ void ofApp::keyPressed(int key)
         // simple send
         smtp.send(recipientEmail, senderEmail, "Sent using ofxSMTP", "Hello world!");
 
-    } else if(key == 'a') {
-        // you can construct complex messages using poco's MailMessage object
+    }
+    else if(key == 'a')
+    {
+        // You can construct complex messages using poco's MailMessage object
         // See http://pocoproject.org/docs/Poco.Net.MailMessage.html
 
         /// SMTP::Message::SharedPtr simply wraps Poco::Net::MailMessage.
         SMTP::Message::SharedPtr message = SMTP::Message::makeShared();
 
-
-        std::string encodedSender = Poco::Net::MailMessage::encodeWord(senderEmail,
-                                                                       "UTF-8");
-        message->setSender(encodedSender);
-
-        Poco::Net::MailRecipient primaryRecipient(Poco::Net::MailRecipient::PRIMARY_RECIPIENT,
-                                                  recipientEmail);
-
-        message->addRecipient(primaryRecipient);
-
-        std::string encodedSubject = Poco::Net::MailMessage::encodeWord("Sent using ofxSMTP",
-                                                                        "UTF-8");
-
-        message->setSubject(encodedSubject);
+        // Encode the sender and set it.
+        message->setSender(Poco::Net::MailMessage::encodeWord(senderEmail,
+                                                              "UTF-8"));
+        // Mark the primary recipient and add them.
+        message->addRecipient(Poco::Net::MailRecipient(Poco::Net::MailRecipient::PRIMARY_RECIPIENT,
+                                                       recipientEmail));
         
+        // Encode the subject and set it.
+        message->setSubject(Poco::Net::MailMessage::encodeWord("Sent using ofxSMTP",
+                                                               "UTF-8"));
+
         // Poco::Net::MailMessage will take ownership of the *PartSource files,
         // so you don't have to worry about deleting the pointers.
-
         message->addContent(new Poco::Net::StringPartSource("Hello world! How about an image?"));
         
-        // Poco::Net::MailMessage throws exceptions when a file is not present,
-        // so we need to catch it.
+        // Poco::Net::MailMessage throws exceptions when a file is not found.
+        // Thus, we need to add attachments in a try / catch block.
 
         try
         {
@@ -110,7 +117,10 @@ void ofApp::keyPressed(int key)
             ofLogError("ofApp::keyPressed") << exc.name() << " : " << exc.displayText();
         }
 
-        // Add the message to the outbox.
+        // Add an additional header, just because we can.
+        message->add("X-Mailer", "ofxSMTP (https://github.com/bakercp/ofxSMTP)");
+
+        // Add the message to our outbox.
         smtp.send(message);
     }
 }
@@ -125,4 +135,26 @@ void ofApp::onSMTPDelivery(SMTP::Message::SharedPtr& message)
 void ofApp::onSMTPException(const Poco::Exception& exc)
 {
     ofLogError("ofApp::onSMTPException") << exc.displayText();
+}
+
+
+void ofApp::onSSLClientVerificationError(Poco::Net::VerificationErrorArgs& args)
+{
+
+    ofLogNotice("ofApp::onClientVerificationError") << std::endl << ofToString(args);
+
+    // If you want to proceed, you must allow the user to inspect the certificate
+    // and set `args.setIgnoreError(true);` if they want to continue.
+
+    args.setIgnoreError(true);
+
+}
+
+void ofApp::onSSLPrivateKeyPassphraseRequired(std::string& passphrase)
+{
+    // If you want to proceed, you must allow the user to input the assign the private key's
+    // passphrase to the `passphrase` argument.  For example:
+
+    passphrase = ofSystemTextBoxDialog("Enter the Private Key Passphrase", "");
+
 }

@@ -30,10 +30,9 @@ namespace ofx {
 namespace SMTP {
 
 
-
 Client::Client():
     _isInited(false),
-    _isSSLInited(false)
+    _pSession(0)
 {
 }
 
@@ -47,12 +46,6 @@ Client::~Client()
         stopThread();
         getPocoThread().join(); // force the join
     }
-
-    if(_isSSLInited)
-    {
-        // must be called once for each initializeSSL()
-        Poco::Net::uninitializeSSL();
-    }
 }
 
 
@@ -61,27 +54,6 @@ void Client::setup(const Settings& settings)
     if (!_isInited)
     {
         _settings = settings;
-
-        if (_settings.getEncryption().getType() != Encryption::NONE)
-        {
-            if(!_isSSLInited)
-            {
-                // may be called multiple times in a program, but must always
-                // be paired with a call to Poco::Net::uninitilizeSSL(). 
-                Poco::Net::initializeSSL();
-                _isSSLInited = true;
-                
-                Poco::SharedPtr<Poco::Net::PrivateKeyPassphraseHandler> pConsoleHandler = new Poco::Net::KeyConsoleHandler(false);
-                Poco::SharedPtr<Poco::Net::InvalidCertificateHandler> pInvalidCertHandler = new Poco::Net::ConsoleCertificateHandler(true);
-
-                _pContext = settings.getEncryption().getContext();
-
-                Poco::Net::SSLManager::instance().initializeClient(pConsoleHandler,
-                                                                   pInvalidCertHandler,
-                                                                   _pContext);
-            }
-        }
-
         _isInited = true;
     }
     else
@@ -142,27 +114,53 @@ void Client::threadedFunction()
 
         try
         {
-
-            if(_settings.getEncryption().getType() == Encryption::SSLTLS)
+            if(Settings::SSLTLS == _settings.getEncryptionType())
             {
-                pSocket = SharedSocket(new Poco::Net::SecureStreamSocket(socketAddress,
-                                                                         _pContext));
+                // Create a Poco::Net::SecureStreamSocket pointer.
+                Poco::Net::SecureStreamSocket* _socket = 0;
+
+                // We get a default context from ofSSLManager to make sure
+                // that Poco::Net::SecureStreamSocket doesn't attempt to create
+                // a default context using Poco::Net::SSLManager.
+                Poco::Net::Context::Ptr _clientContext = ofSSLManager::getDefaultClientContext();
+
+                // Create a Poco::Net::SecureStreamSocket and connect to it.
+                // Use the Default Client context from ofSSLManager and
+                // attempt to use saved Poco::Nett::Session on subsequent
+                // attempts the Client SSL Context and server allow it,
+                // and one was saved during a previous connection.
+                _socket = new Poco::Net::SecureStreamSocket(socketAddress,
+                                                            _clientContext,
+                                                            _pSession);
+
+                // Attempt to save an SSL Client session.
+                _pSession = _socket->currentSession();
+
+                // Let the shared pointer take ownership of the raw pointer.
+                pSocket = SharedSocket(_socket);
             }
             else
             {
                 pSocket = SharedSocket(new Poco::Net::StreamSocket(socketAddress));
             }
-            
+
+            #if defined(POCO_OS_FAMILY_UNIX)
+            // essential on early versions of Poco!  fixed in 1.4.6p2+ / 1.5.2+
+            // https://github.com/pocoproject/poco/issues/235
+            pSocket->setOption(SOL_SOCKET, SO_NOSIGPIPE, 1); // ignore SIGPIPE
+            #endif
+
             Poco::Net::SecureSMTPClientSession session(*pSocket);
             
             session.setTimeout(_settings.getTimeout());
             
-            if (Encryption::STARTTLS == _settings.getEncryption().getType())
+            if (Settings::STARTTLS == _settings.getEncryptionType())
             {
-                // make the initial connection
+                // Make the initial connection.
                 session.login();
-                // this is supposed to return true on succes, but it doesn't.
-                session.startTLS(_pContext);
+                // TODO:
+                // This is supposed to return true on succes, but it doesn't.
+                session.startTLS(ofSSLManager::getDefaultClientContext());
             }
 
             if (_settings.getCredentials().getLoginMethod() !=

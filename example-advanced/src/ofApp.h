@@ -45,12 +45,11 @@ public:
     void onSMTPDelivery(SMTP::Message::SharedPtr& message);
     void onSMTPException(const Poco::Exception& exc);
 
-    void onSSLServerVerificationError(Poco::Net::VerificationErrorArgs& args);
     void onSSLClientVerificationError(Poco::Net::VerificationErrorArgs& args);
     void onSSLPrivateKeyPassphraseRequired(std::string& passphrase);
 
-    std::string  recipientEmail;
-    std::string  senderEmail;
+    std::string recipientEmail;
+    std::string senderEmail;
 
     SMTP::Client smtp;
 

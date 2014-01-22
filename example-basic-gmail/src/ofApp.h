@@ -23,44 +23,26 @@
 // =============================================================================
 
 
-#include "ofApp.h"
+#pragma once
 
 
-//------------------------------------------------------------------------------
-void ofApp::setup()
+#include "ofMain.h"
+#include "ofxSMTP.h"
+
+
+using namespace ofx;
+
+class ofApp: public ofBaseApp
 {
-    ofxSMTPGmailSettings settings("USERNAME@gmail.com","PASSWORD");
-    smtp.setup(settings);
-}
+public:
+    void setup();
+    void draw();
+    
+    void keyPressed(int key);
 
-//------------------------------------------------------------------------------
-void ofApp::draw()
-{
-    ofBackground(80);
-    ofDrawBitmapStringHighlight("ofxSMTP: There are " + ofToString(smtp.getNumQueued()) + " messages in your outbox.", 10,20);
-}
+    void onSMTPDelivery(SMTP::Message::SharedPtr& message);
+    void onSMTPException(const Poco::Exception& exc);
 
-//------------------------------------------------------------------------------
-void ofApp::keyPressed(int key)
-{
-    if(key == ' ')
-    {
-        // simple send
-        smtp.send("recipient@example.com",
-                  "USERNAME@gmail.com",
-                  "Sent using ofxSMTP",
-                  "Hello world!");
-    }
-}
+    SMTP::Client smtp;
 
-//------------------------------------------------------------------------------
-void ofApp::onDelivery(ofxMailMessage& message)
-{
-    ofLogNotice("ofApp::onDelivery") << "Message Sent: " << message->getSubject();
-}
-
-//------------------------------------------------------------------------------
-void ofApp::onException(const Exception& exc)
-{
-    ofLogError("ofApp::onException") << exc.displayText();
-}
+};

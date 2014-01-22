@@ -5,9 +5,9 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>568240D8-456A-412C-85EE-3E8A0072FFCF</string>
+	<string>46A9D627-0648-4B97-8548-253CE41F8FFD</string>
 	<key>IDESourceControlProjectName</key>
-	<string>example</string>
+	<string>example-basic-gmail</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>15017C91-C092-447A-B744-FED377721E91</key>
@@ -16,7 +16,7 @@
 		<string>ssh://github.com/bakercp/openFrameworks.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>addons/ofxSMTP/example/example.xcodeproj/project.xcworkspace</string>
+	<string>addons/ofxSMTP/example-basic-gmail/example-basic-gmail.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>15017C91-C092-447A-B744-FED377721E91</key>

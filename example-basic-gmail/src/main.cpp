@@ -1,6 +1,6 @@
 // =============================================================================
 //
-// Copyright (c) 2010-2013 Christopher Baker <http://christopherbaker.net>
+// Copyright (c) 2013-2014 Christopher Baker <http://christopherbaker.net>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,26 +23,11 @@
 // =============================================================================
 
 
-#pragma once
+#include "ofApp.h"
 
 
-//#include "Poco/Exception.h"
-//#include "Poco/Net/FilePartSource.h"
-//#include "Poco/Net/StringPartSource.h"
-#include "ofMain.h"
-#include "Client.h"
-
-
-using ofx::SMTP::Client;
-
-class ofApp: public ofBaseApp
+int main()
 {
-public:
-    void setup();
-    void draw();
-    
-    void keyPressed(int key);
-
-    Client smtp;
-
-};
+    ofSetupOpenGL(400, 30, OF_WINDOW);
+    ofRunApp(new ofApp());
+}

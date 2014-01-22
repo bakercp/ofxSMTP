@@ -23,9 +23,7 @@
 // =============================================================================
 
 
-
 #include "ofx/SMTP/Settings.h"
-
 
 
 namespace ofx {
@@ -39,13 +37,13 @@ const Poco::Timespan Settings::DEFAULT_MESSAGE_SEND_DELAY= Poco::Timespan(100 * 
 Settings::Settings(const std::string& host,
                    unsigned short port,
                    Credentials credentials,
-                   Encryption encryption,
+                   EncryptionType encryptionType,
                    Poco::Timespan timeout,
                    Poco::Timespan messageSendDelay):
     _host(host),
     _port(port),
     _credentials(credentials),
-    _encryption(encryption),
+    _encryptionType(encryptionType),
     _timeout(timeout),
     _messageSendDelay(messageSendDelay)
 {
@@ -75,9 +73,9 @@ Credentials Settings::getCredentials() const
 }
 
 
-Encryption Settings::getEncryption() const
+Settings::EncryptionType Settings::getEncryptionType() const
 {
-    return _encryption;
+    return _encryptionType;
 }
 
 
@@ -93,7 +91,8 @@ Poco::Timespan Settings::getMessageSendDelay() const
 }
 
 
-Settings Settings::loadFromXML(ofxXmlSettings xml, const std::string& accountName)
+Settings Settings::loadFromXML(ofxXmlSettings xml,
+                               const std::string& accountName)
 {
     // if account name is an empty string, then the first unnamed account will be matched
     // expected an <accounts> tag as current root element with child <account> elements
@@ -146,7 +145,9 @@ Settings Settings::loadFromXML(ofxXmlSettings xml, const std::string& accountNam
     
     Poco::Timespan timeout(timeoutInt * Poco::Timespan::MILLISECONDS);
     
-    int messageSendDelayInt = xml.getValue("account:timeout", 100, accountIndex);
+    int messageSendDelayInt = xml.getValue("account:timeout",
+                                           100,
+                                           accountIndex);
     
     Poco::Timespan messageSendDelay(messageSendDelayInt * Poco::Timespan::MILLISECONDS);
     
@@ -190,21 +191,23 @@ Settings Settings::loadFromXML(ofxXmlSettings xml, const std::string& accountNam
         return settings;
     }
     
-    string encryptionTypeString = xml.getValue("account:encryption:type","NONE",accountIndex);
+    std::string encryptionTypeString = xml.getValue("account:encryption",
+                                                    "NONE",
+                                                    accountIndex);
     
-    Encryption::Type encryptionType;
+    Settings::EncryptionType encryptionType;
     
     if ("NONE" == encryptionTypeString)
     {
-        encryptionType = Encryption::NONE;
+        encryptionType = NONE;
     }
     else if ("SSLTLS" == encryptionTypeString)
     {
-        encryptionType = Encryption::SSLTLS;
+        encryptionType = SSLTLS;
     }
     else if ("STARTTLS" == encryptionTypeString)
     {
-        encryptionType = Encryption::STARTTLS;
+        encryptionType = STARTTLS;
     }
     else
     {
@@ -212,45 +215,12 @@ Settings Settings::loadFromXML(ofxXmlSettings xml, const std::string& accountNam
         return settings;
     }
     
-    std::string verificationModeString = xml.getValue("account:encryption:verification-mode",
-                                                      "VERIFY_RELAXED",
-                                                      accountIndex);
-    
-    Poco::Net::Context::VerificationMode verificationMode = Poco::Net::Context::VERIFY_RELAXED;
-    
-    if ("VERIFY_NONE" == verificationModeString)
-    {
-        verificationMode = Poco::Net::Context::VERIFY_NONE;
-    }
-    else if ("VERIFY_RELAXED" == verificationModeString)
-    {
-        verificationMode = Poco::Net::Context::VERIFY_RELAXED;
-    }
-    else if("VERIFY_STRICT" == verificationModeString)
-    {
-        verificationMode = Poco::Net::Context::VERIFY_STRICT;
-    }
-    else if ("VERIFY_ONCE" == verificationModeString)
-    {
-        verificationMode = Poco::Net::Context::VERIFY_ONCE;
-    }
-    else
-    {
-        ofLogWarning("Settings::loadFromXML") << "Unsupported verification type: " << verificationModeString;
-        return settings;
-    }
-    
-    std::string caLocation = xml.getValue("account:encryption:ca-location", "cacert.pem", accountIndex);
-    
-    
     settings = Settings(host,
                         port,
                         Credentials(username,
                                     password,
                                     loginMethod),
-                        Encryption(encryptionType,
-                                   caLocation,
-                                   verificationMode),
+                        encryptionType,
                         timeout,
                         messageSendDelay);
     
@@ -270,7 +240,7 @@ Settings Settings::loadFromXML(const std::string& filename,
     }
     else
     {
-        ofLogError("Settings::loadFromXML") << "Unable to load XML from " << filename << ".  Loading defaults.";
+        ofLogError("Settings::loadFromXML") << "Unable to load XML from " << filename << XML.doc.ErrorDesc() << ".  Loading defaults.";
         return Settings();
     }
 }
@@ -282,7 +252,7 @@ SSLTLSSettings::SSLTLSSettings(const std::string& host,
     Settings(host,
              port,
              Credentials(credentials),
-             Encryption(Encryption::SSLTLS))
+             Settings::SSLTLS)
 {
 }
 
