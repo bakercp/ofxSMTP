@@ -75,13 +75,13 @@ void ofApp::draw()
 
 void ofApp::keyPressed(int key)
 {
-    if (key == ' ')
+    if (key == ' ') // Press spacebar for a simple send.
     {
         // simple send
         smtp.send(recipientEmail, senderEmail, "Sent using ofxSMTP", "Hello world!");
 
     }
-    else if(key == 'a')
+    else if(key == 'a') // Press 'a' for an advanced send with attachment.
     {
         // You can construct complex messages using poco's MailMessage object
         // See http://pocoproject.org/docs/Poco.Net.MailMessage.html
