@@ -1,3 +1,2 @@
-ofxCryptoUtils
 ofxSMTP
 ofxXmlSettings

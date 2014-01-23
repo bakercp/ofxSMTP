@@ -77,6 +77,7 @@
 		25190818fca72fb4365a18d305345ad7 /* ofxSMTP.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSMTP.h; path = ../../../addons/ofxSMTP/src/ofxSMTP.h; sourceTree = SOURCE_ROOT; };
 		29434b2b7e45bf019d803f55f6aef125 /* LoggerChannel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = LoggerChannel.cpp; path = ../../../addons/ofxSMTP/libs/ofxSMTP/src/LoggerChannel.cpp; sourceTree = SOURCE_ROOT; };
 		2b40eda85beb63e46785bc299a638898 /* tinyxml.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxml.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxml.cpp; sourceTree = SOURCE_ROOT; };
+		4eea77f5bd90c514d565bac6a7240094 /* Events.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Events.h; path = ../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx/SMTP/Events.h; sourceTree = SOURCE_ROOT; };
 		50df87d612c5aae17aafa6c02c6bc570 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxXmlSettings.cpp; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SOURCE_ROOT; };
 		53748eadc10733de007114f015c05acb /* Credentials.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Credentials.cpp; path = ../../../addons/ofxSMTP/libs/ofxSMTP/src/Credentials.cpp; sourceTree = SOURCE_ROOT; };
 		70723dc4de545ac6b7c7ab213e994ff1 /* GmailSettings.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = GmailSettings.h; path = ../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx/SMTP/GmailSettings.h; sourceTree = SOURCE_ROOT; };
@@ -105,7 +106,6 @@
 		E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		E7E077E715D3B6510020DFD4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		E7F985F515E0DE99003869B5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
-		FD86417D188AF36200FE2180 /* Events.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Events.h; path = ../libs/ofxSMTP/include/ofx/SMTP/Events.h; sourceTree = "<group>"; };
 		b21e7e5f548eea92f368040bb1aa2f69 /* tinyxml.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = tinyxml.h; path = ../../../addons/ofxXmlSettings/libs/tinyxml.h; sourceTree = SOURCE_ROOT; };
 		cfddc1394a0686dd8d0ba59911d38ba3 /* Client.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Client.cpp; path = ../../../addons/ofxSMTP/libs/ofxSMTP/src/Client.cpp; sourceTree = SOURCE_ROOT; };
 		d8b78e6112e4294c55eaad107bd45e9b /* Client.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Client.h; path = ../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx/SMTP/Client.h; sourceTree = SOURCE_ROOT; };
@@ -207,9 +207,9 @@
 		9603b3b569314b1a074e019ae73b7193 /* SMTP */ = {
 			isa = PBXGroup;
 			children = (
-				FD86417D188AF36200FE2180 /* Events.h */,
 				d8b78e6112e4294c55eaad107bd45e9b /* Client.h */,
 				e71c9bfedd2c744a1d99824284bf35c2 /* Credentials.h */,
+				4eea77f5bd90c514d565bac6a7240094 /* Events.h */,
 				70723dc4de545ac6b7c7ab213e994ff1 /* GmailSettings.h */,
 				ea1cc58977d43680bf43fda2eb613a43 /* LoggerChannel.h */,
 				17fbbabf943a2dced19c74e3b454bf6d /* Settings.h */,
@@ -471,12 +471,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
-					../../../addons/ofxCryptoUtils/libs,
-					../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils,
-					../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils/include,
-					../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils/include/ofx,
-					../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils/src,
-					../../../addons/ofxCryptoUtils/src,
 					../../../addons/ofxSMTP/libs,
 					../../../addons/ofxSMTP/libs/ofxSMTP,
 					../../../addons/ofxSMTP/libs/ofxSMTP/include,
@@ -522,12 +516,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
-					../../../addons/ofxCryptoUtils/libs,
-					../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils,
-					../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils/include,
-					../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils/include/ofx,
-					../../../addons/ofxCryptoUtils/libs/ofxCryptoUtils/src,
-					../../../addons/ofxCryptoUtils/src,
 					../../../addons/ofxSMTP/libs,
 					../../../addons/ofxSMTP/libs/ofxSMTP,
 					../../../addons/ofxSMTP/libs/ofxSMTP/include,
@@ -561,19 +549,6 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = NONE;
-				HEADER_SEARCH_PATHS = (
-					"$(OF_CORE_HEADERS)",
-					src,
-					../../../addons/ofxSMTP/libs,
-					../../../addons/ofxSMTP/libs/ofxSMTP,
-					../../../addons/ofxSMTP/libs/ofxSMTP/include,
-					../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx,
-					../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx/SMTP,
-					../../../addons/ofxSMTP/libs/ofxSMTP/src,
-					../../../addons/ofxSMTP/src,
-					../../../addons/ofxXmlSettings/libs,
-					../../../addons/ofxXmlSettings/src,
-				);
 				ICON = "$(ICON_NAME_DEBUG)";
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
 				INFOPLIST_FILE = "openFrameworks-Info.plist";
@@ -659,19 +634,6 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../libs/glut/lib/osx\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = NONE;
-				HEADER_SEARCH_PATHS = (
-					"$(OF_CORE_HEADERS)",
-					src,
-					../../../addons/ofxSMTP/libs,
-					../../../addons/ofxSMTP/libs/ofxSMTP,
-					../../../addons/ofxSMTP/libs/ofxSMTP/include,
-					../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx,
-					../../../addons/ofxSMTP/libs/ofxSMTP/include/ofx/SMTP,
-					../../../addons/ofxSMTP/libs/ofxSMTP/src,
-					../../../addons/ofxSMTP/src,
-					../../../addons/ofxXmlSettings/libs,
-					../../../addons/ofxXmlSettings/src,
-				);
 				ICON = "$(ICON_NAME_RELEASE)";
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
 				INFOPLIST_FILE = "openFrameworks-Info.plist";
