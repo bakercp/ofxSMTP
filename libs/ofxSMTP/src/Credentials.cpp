@@ -23,18 +23,45 @@
 // =============================================================================
 
 
-
-#include "Poco/Exception.h"
-#include "Poco/Net/FilePartSource.h"
-#include "Poco/Net/StringPartSource.h"
-#include "Poco/DateTimeFormatter.h"
-
-#include "ofSSLManager.h"
-
-#include "ofx/SMTP/Events.h"
-#include "ofx/SMTP/Client.h"
 #include "ofx/SMTP/Credentials.h"
-#include "ofx/SMTP/GmailSettings.h"
-#include "ofx/SMTP/Settings.h"
-#include "ofx/SMTP/Types.h"
 
+
+namespace ofx {
+namespace SMTP {
+
+
+
+Credentials::Credentials(const std::string& username,
+                         const std::string& password,
+                         const LoginMethod& loginMethod):
+    _username(username),
+    _password(password),
+    _loginMethod(loginMethod)
+{
+}
+
+
+Credentials::~Credentials()
+{
+}
+
+
+std::string Credentials::getUsername() const
+{
+    return _username;
+}
+
+
+std::string Credentials::getPassword() const
+{
+    return _password;
+}
+
+
+Credentials::LoginMethod Credentials::getLoginMethod() const
+{
+    return _loginMethod;
+}
+
+    
+} } // namespace ofx::SMTP

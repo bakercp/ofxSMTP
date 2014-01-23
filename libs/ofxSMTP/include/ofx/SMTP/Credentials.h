@@ -23,18 +23,55 @@
 // =============================================================================
 
 
+#pragma once
 
-#include "Poco/Exception.h"
-#include "Poco/Net/FilePartSource.h"
-#include "Poco/Net/StringPartSource.h"
-#include "Poco/DateTimeFormatter.h"
 
-#include "ofSSLManager.h"
+#include <string>
+#include "Poco/Net/SMTPClientSession.h"
 
-#include "ofx/SMTP/Events.h"
-#include "ofx/SMTP/Client.h"
-#include "ofx/SMTP/Credentials.h"
-#include "ofx/SMTP/GmailSettings.h"
-#include "ofx/SMTP/Settings.h"
-#include "ofx/SMTP/Types.h"
 
+namespace ofx {
+namespace SMTP {
+
+
+class Credentials
+    /// \brief An class to represent SMTP Credentials.
+{
+public:
+    typedef Poco::Net::SMTPClientSession::LoginMethod LoginMethod;
+        ///< \brief A typedef for a LoginMethod.
+
+    Credentials(const std::string& username = "",
+                const std::string& password = "",
+                const LoginMethod& loginMethod = Poco::Net::SMTPClientSession::AUTH_NONE);
+        ///< \brief Create Credentials.
+        ///< \param username The account username.
+        ///< \param password The account password.
+        ///< \param loginMethod The login security method.
+
+    virtual ~Credentials();
+        ///< \brief Destroy the Credentials.
+    
+    std::string getUsername() const;
+        ///< \returns The account username.
+
+    std::string getPassword() const;
+        ///< \returns The account password.
+
+    LoginMethod getLoginMethod() const;
+        ///< \returns The login security method.
+
+private:
+    std::string _username;
+        ///< \brief The account username.
+
+    std::string _password;
+        ///< \brief The account password.
+
+    LoginMethod _loginMethod;
+        ///< \brief the Account login security method.
+    
+};
+
+
+} } // namespace ofx::SMTP

@@ -1,0 +1,3 @@
+ofxSMTP
+ofxSSLManager
+ofxXmlSettings

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>11C4AE94-B522-49C6-8A1C-A64B8F032610</string>
+	<key>IDESourceControlProjectName</key>
+	<string>example-advanced</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>15017C91-C092-447A-B744-FED377721E91</key>
+		<string>ssh://github.com/bakercp/ofxSMTP.git</string>
+		<key>3B34514A-1075-456B-8AF0-DAEFD698200B</key>
+		<string>ssh://github.com/bakercp/openFrameworks.git</string>
+		<key>917DD670-F943-4B4B-A100-AB4CFEB25B6B</key>
+		<string>ssh://github.com/bakercp/ofxSSLManager.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>addons/ofxSMTP/example-advanced/example-advanced.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>15017C91-C092-447A-B744-FED377721E91</key>
+		<string>../../..</string>
+		<key>3B34514A-1075-456B-8AF0-DAEFD698200B</key>
+		<string>../../../../..</string>
+		<key>917DD670-F943-4B4B-A100-AB4CFEB25B6B</key>
+		<string>../../../../ofxSSLManager</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/bakercp/ofxSMTP.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3B34514A-1075-456B-8AF0-DAEFD698200B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>15017C91-C092-447A-B744-FED377721E91</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxSMTP</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>917DD670-F943-4B4B-A100-AB4CFEB25B6B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxSSLManager</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3B34514A-1075-456B-8AF0-DAEFD698200B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>openFrameworks</string>
+		</dict>
+	</array>
+</dict>
+</plist>

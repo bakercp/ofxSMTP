@@ -1,6 +1,6 @@
 // =============================================================================
 //
-// Copyright (c) 2013-2014 Christopher Baker <http://christopherbaker.net>
+// Copyright (c) 2010-2013 Christopher Baker <http://christopherbaker.net>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,18 +23,30 @@
 // =============================================================================
 
 
+#pragma once
 
-#include "Poco/Exception.h"
-#include "Poco/Net/FilePartSource.h"
-#include "Poco/Net/StringPartSource.h"
-#include "Poco/DateTimeFormatter.h"
 
-#include "ofSSLManager.h"
+#include "ofMain.h"
+#include "ofxSMTP.h"
 
-#include "ofx/SMTP/Events.h"
-#include "ofx/SMTP/Client.h"
-#include "ofx/SMTP/Credentials.h"
-#include "ofx/SMTP/GmailSettings.h"
-#include "ofx/SMTP/Settings.h"
-#include "ofx/SMTP/Types.h"
 
+using namespace ofx;
+
+
+class ofApp: public ofBaseApp
+{
+public:
+    void setup();
+    void draw();
+    
+    void keyPressed(int key);
+
+    void onSMTPDelivery(SMTP::Message::SharedPtr& message);
+    void onSMTPException(const Poco::Exception& exc);
+
+    void onSSLClientVerificationError(Poco::Net::VerificationErrorArgs& args);
+    void onSSLPrivateKeyPassphraseRequired(std::string& passphrase);
+
+    SMTP::Client smtp;
+
+};

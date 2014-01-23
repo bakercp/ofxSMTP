@@ -23,18 +23,54 @@
 // =============================================================================
 
 
+#pragma once
 
-#include "Poco/Exception.h"
-#include "Poco/Net/FilePartSource.h"
-#include "Poco/Net/StringPartSource.h"
-#include "Poco/DateTimeFormatter.h"
 
-#include "ofSSLManager.h"
+#if (_MSC_VER)
+#include <memory>
+#else
+#include <tr1/memory>
+// import smart pointers utils into std
+namespace std {
+#if __cplusplus<201103L
+	using std::tr1::shared_ptr;
+	using std::tr1::weak_ptr;
+	using std::tr1::enable_shared_from_this;
+#endif
+	using std::tr1::static_pointer_cast;
+	using std::tr1::dynamic_pointer_cast;
+	using std::tr1::const_pointer_cast;
+	using std::tr1::__dynamic_cast_tag;
+}
+#endif
 
-#include "ofx/SMTP/Events.h"
-#include "ofx/SMTP/Client.h"
-#include "ofx/SMTP/Credentials.h"
-#include "ofx/SMTP/GmailSettings.h"
-#include "ofx/SMTP/Settings.h"
-#include "ofx/SMTP/Types.h"
 
+#include "Poco/Net/MailMessage.h"
+
+
+namespace ofx {
+namespace SMTP {
+
+
+class Message
+    /// \brief A wrapper for Poco::Net::MailMessage.
+{
+public:
+    typedef std::shared_ptr<Poco::Net::MailMessage> SharedPtr;
+        ///< \brief A typedef to a SharedPtr.
+
+    static SharedPtr makeShared()
+    {
+        return SharedPtr(new Poco::Net::MailMessage());
+    }
+        ///< \brief Make a shared pointer;
+        ///< \todo Replace with std::make_shared with C++11.
+
+private:
+    Message();
+    Message(const Message&);
+	Message& operator = (const Message&);
+
+};
+
+} } // namespace ofx::SMTP
