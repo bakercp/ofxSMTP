@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>55B9437E-0CDC-4EFB-B518-8EB019DE0CA9</string>
+	<string>74998497-FF71-4438-954A-69D5024B48A9</string>
 	<key>IDESourceControlProjectName</key>
 	<string>example-basic-gmail</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -14,6 +14,8 @@
 		<string>ssh://github.com/bakercp/ofxSMTP.git</string>
 		<key>3B34514A-1075-456B-8AF0-DAEFD698200B</key>
 		<string>ssh://github.com/bakercp/openFrameworks.git</string>
+		<key>917DD670-F943-4B4B-A100-AB4CFEB25B6B</key>
+		<string>ssh://github.com/bakercp/ofxSSLManager.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>addons/ofxSMTP/example-basic-gmail/example-basic-gmail.xcodeproj/project.xcworkspace</string>
@@ -23,6 +25,8 @@
 		<string>../../..</string>
 		<key>3B34514A-1075-456B-8AF0-DAEFD698200B</key>
 		<string>../../../../..</string>
+		<key>917DD670-F943-4B4B-A100-AB4CFEB25B6B</key>
+		<string>../../../../ofxSSLManager</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/bakercp/ofxSMTP.git</string>
@@ -39,6 +43,14 @@
 			<string>15017C91-C092-447A-B744-FED377721E91</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxSMTP</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>917DD670-F943-4B4B-A100-AB4CFEB25B6B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxSSLManager</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>

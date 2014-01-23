@@ -29,6 +29,8 @@
 #include "Poco/Net/StringPartSource.h"
 #include "Poco/DateTimeFormatter.h"
 
+#include "ofSSLManager.h"
+
 #include "ofx/SMTP/Events.h"
 #include "ofx/SMTP/Client.h"
 #include "ofx/SMTP/Credentials.h"
