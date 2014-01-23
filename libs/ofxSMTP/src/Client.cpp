@@ -208,6 +208,14 @@ void Client::threadedFunction()
         }
         catch (Poco::Net::SSLException& exc)
         {
+            if (_currentMessage)
+            {
+                mutex.lock();
+                _outbox.push_front(_currentMessage);
+                _currentMessage.reset();
+                mutex.unlock();
+            }
+
             ofLogError("Client::threadedFunction") << exc.name() << " : " << exc.displayText();
 
             if (exc.displayText().find("SSL3_GET_SERVER_CERTIFICATE") != string::npos)
@@ -232,11 +240,27 @@ void Client::threadedFunction()
         }
         catch (Poco::Exception &exc)
         {
+            if (_currentMessage)
+            {
+                mutex.lock();
+                _outbox.push_front(_currentMessage);
+                _currentMessage.reset();
+                mutex.unlock();
+            }
+
             ofLogError("Client::threadedFunction") << exc.name() << " : " << exc.displayText();
             ofNotifyEvent(events.onSMTPException, exc, this);
         }
         catch (std::exception& exc)
         {
+            if (_currentMessage)
+            {
+                mutex.lock();
+                _outbox.push_front(_currentMessage);
+                _currentMessage.reset();
+                mutex.unlock();
+            }
+
             ofLogError("Client::threadedFunction") << exc.what();
             ofNotifyEvent(events.onSMTPException,
                           Poco::Exception(exc.what()),
