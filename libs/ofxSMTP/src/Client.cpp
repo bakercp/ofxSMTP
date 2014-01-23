@@ -206,6 +206,17 @@ void Client::threadedFunction()
             ofLogError("Client::threadedFunction") << exc.name() << " : " << exc.displayText();
             pSocket->close();
         }
+        catch (Poco::Net::SSLException& exc)
+        {
+            ofLogError("Client::threadedFunction") << exc.name() << " : " << exc.displayText();
+
+            if (exc.displayText().find("SSL3_GET_SERVER_CERTIFICATE") != string::npos)
+            {
+                ofLogError("Client::threadedFunction") << "\t\t" << "This may be because you asked your SSL context to verify the server's certificate, but your certificate authority (ca) file is missing.";
+            }
+
+            ofNotifyEvent(events.onSMTPException, exc, this);
+        }
         catch (Poco::Net::NetException& exc)
         {
             if (_currentMessage)
@@ -217,17 +228,6 @@ void Client::threadedFunction()
             }
 
             ofLogError("Client::threadedFunction") << exc.name() << " : " << exc.displayText();
-            ofNotifyEvent(events.onSMTPException, exc, this);
-        }
-        catch (Poco::Net::SSLException& exc)
-        {
-            ofLogError("Client::threadedFunction") << exc.name() << " : " << exc.displayText();
-
-            if (exc.displayText().find("SSL3_GET_SERVER_CERTIFICATE") != string::npos)
-            {
-                ofLogError("Client::threadedFunction") << "\t\t" << "This may be because you asked your SSL context to verify the server's certificate, but your certificate authority (ca) file is missing.";
-            }
-
             ofNotifyEvent(events.onSMTPException, exc, this);
         }
         catch (Poco::Exception &exc)
