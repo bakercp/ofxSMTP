@@ -31,8 +31,8 @@ namespace SMTP {
 
 
 Client::Client():
-    _isInited(false),
-    _pSession(0)
+    _pSession(0),
+    _isInited(false)
 {
 }
 
