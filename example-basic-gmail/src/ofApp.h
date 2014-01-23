@@ -32,6 +32,7 @@
 
 using namespace ofx;
 
+
 class ofApp: public ofBaseApp
 {
 public:
@@ -42,6 +43,9 @@ public:
 
     void onSMTPDelivery(SMTP::Message::SharedPtr& message);
     void onSMTPException(const Poco::Exception& exc);
+
+    void onSSLClientVerificationError(Poco::Net::VerificationErrorArgs& args);
+    void onSSLPrivateKeyPassphraseRequired(std::string& passphrase);
 
     SMTP::Client smtp;
 

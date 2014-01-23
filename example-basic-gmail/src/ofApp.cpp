@@ -28,6 +28,9 @@
 
 void ofApp::setup()
 {
+    // Register for SSL Context events.
+    ofSSLManager::registerClientEvents(this);
+
     // Use the simple gmail settings (also works for any gmail based account).
     SMTP::GmailSettings settings("USERNAME@gmail.com","PASSWORD");
 
@@ -73,3 +76,27 @@ void ofApp::onSMTPException(const Poco::Exception& exc)
 {
     ofLogError("ofApp::onSMTPException") << exc.displayText();
 }
+
+
+void ofApp::onSSLClientVerificationError(Poco::Net::VerificationErrorArgs& args)
+{
+
+    ofLogNotice("ofApp::onClientVerificationError") << std::endl << ofToString(args);
+
+    // If you want to proceed, you must allow the user to inspect the certificate
+    // and set `args.setIgnoreError(true);` if they want to continue.
+
+    args.setIgnoreError(true);
+
+}
+
+
+void ofApp::onSSLPrivateKeyPassphraseRequired(std::string& passphrase)
+{
+    // If you want to proceed, you must allow the user to input the assign the private key's
+    // passphrase to the `passphrase` argument.  For example:
+
+    passphrase = ofSystemTextBoxDialog("Enter the Private Key Passphrase", "");
+    
+}
+

@@ -28,7 +28,7 @@
 
 void ofApp::setup()
 {
-    // Register SSL context error callbacks.
+    // Register for SSL Context events.
     ofSSLManager::registerClientEvents(this);
 
     // Set the name of the recipient for this example.
