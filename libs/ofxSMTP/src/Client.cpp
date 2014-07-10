@@ -40,12 +40,7 @@ Client::Client():
 Client::~Client()
 {
     _messageReady.set();
-
-    if (getPocoThread().isRunning())
-    {
-        stopThread();
-        getPocoThread().join(); // force the join
-    }
+    waitForThread();
 }
 
 
