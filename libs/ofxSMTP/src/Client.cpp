@@ -34,18 +34,14 @@ Client::Client():
     _pSession(0),
     _isInited(false)
 {
+    ofAddListener(ofEvents().exit, this, &Client::exit);
 }
 
 
 Client::~Client()
 {
-    _messageReady.set();
-
-    if (getPocoThread().isRunning())
-    {
-        stopThread();
-        getPocoThread().join(); // force the join
-    }
+    ofRemoveListener(ofEvents().exit, this, &Client::exit);
+    waitForThread();
 }
 
 
@@ -60,6 +56,13 @@ void Client::setup(const Settings& settings)
     {
         ofLogError("Client::send") << "SMTP Client is already initialized.";
     }
+}
+
+
+void Client::exit(ofEventArgs& args)
+{
+    _messageReady.set();
+    stopThread();
 }
 
 
@@ -289,7 +292,7 @@ void Client::start()
     if (!isThreadRunning())
     {
         ofLogVerbose("Client::start") << "Starting thread.";
-        startThread(true, false);   // blocking, verbose
+        startThread(true);   // blocking, verbose
     }
     else
     {

@@ -65,6 +65,8 @@ public:
     /// \param settings The SMTP Client configuration.
     void setup(const Settings& settings = Settings());
 
+    void exit(ofEventArgs& args);
+
     /// \brief Send a simple message with no attachments.
     /// \param to The recipient address.
     /// \param from The sender address.
