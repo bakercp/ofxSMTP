@@ -52,20 +52,20 @@ namespace ofx {
 namespace SMTP {
 
 
+/// \brief A wrapper for Poco::Net::MailMessage.
 class Message
-    /// \brief A wrapper for Poco::Net::MailMessage.
 {
 public:
+    /// \brief A typedef to a SharedPtr.
     typedef std::shared_ptr<Poco::Net::MailMessage> SharedPtr;
-        ///< \brief A typedef to a SharedPtr.
 
+    /// \brief Make a shared pointer;
+    /// \todo Replace with std::make_shared with C++11.
     static SharedPtr makeShared()
     {
         return SharedPtr(new Poco::Net::MailMessage());
     }
-        ///< \brief Make a shared pointer;
-        ///< \todo Replace with std::make_shared with C++11.
-
+    
 private:
     Message();
     Message(const Message&);

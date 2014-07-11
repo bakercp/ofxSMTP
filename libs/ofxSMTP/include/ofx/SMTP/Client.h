@@ -51,68 +51,68 @@ namespace ofx {
 namespace SMTP {
 
 
+/// \brief An SMTP Client.
 class Client: public ofThread
-    /// \brief An SMTP Client.
 {
 public:
+    /// \brief Create an SMTP client.
     Client();
-        ///< \brief Create an SMTP client.
 
+    /// \brief Destroy an SMTP client.
     virtual ~Client();
-        ///< \brief Destroy an SMTP client.
 
+    /// \brief Setup an SMTP client.
+    /// \param settings The SMTP Client configuration.
     void setup(const Settings& settings = Settings());
-        ///< \brief Setup an SMTP client.
-        ///< \param settings The SMTP Client configuration.
-    
+
+    /// \brief Send a simple message with no attachments.
+    /// \param to The recipient address.
+    /// \param from The sender address.
+    /// \param subject The subject of the message.
+    /// \param body The plain text body of the message.
     void send(const std::string& to,
               const std::string& from,
               const std::string& subject,
               const std::string& body);
-        ///< \brief Send a simple message with no attachments.
-        ///< \param to The recipient address.
-        ///< \param from The sender address.
-        ///< \param subject The subject of the message.
-        ///< \param body The plain text body of the message.
-    
+
+    /// \brief Send a more complex message with attachments etc.
+    /// \param message The message to send.
     void send(Message::SharedPtr message);
-        ///< \brief Send a more complex message with attachments etc.
-        ///< \param message The message to send.
-    
+
+    /// \brief Get number in the outbox.
+    /// \returns The number of messages queued in the outbox.
     std::size_t getOutboxSize();
-        ///< \brief Get number in the outbox.
-        ///< \returns The number of messages queued in the outbox.
-    
+
+    /// \brief The event callbacks.
     ClientEvents events;
-        ///< \brief The event callbacks.
 
 private:
+    /// \brief A typdef for a SharedSocket.
     typedef std::shared_ptr<Poco::Net::StreamSocket> SharedSocket;
-        ///< \brief A typdef for a SharedSocket.
 
+    /// \brief Start the thread.
     void start();
-        ///< \brief Start the thread.
-    
+
+    /// \brief The threaded function.
     void threadedFunction();
-        ///< \brief The threaded function.
 
+    /// \brief The current client settings.
     Settings _settings;
-        ///< \brief The current client settings.
 
+    /// \brief The message outbox queue.
     std::deque<Message::SharedPtr> _outbox;
-        ///< \brief The message outbox queue.
 
+    /// \brief THe current message being sent.
     Message::SharedPtr _currentMessage;
-        ///< \brief THe current message being sent.
 
+    /// \brief The send condition.
     Poco::Event _messageReady;
-        ///< \brief The send condition.
 
+    /// \brief A session pointer to be set and reused if permitted.
     Poco::Net::Session::Ptr _pSession;
-        ///< \brief A session pointer to be set and reused if permitted.
 
+    /// \brief Is the program initalized via setup?
     bool _isInited;
-        ///< \brief Is the program initalized via setup?
 
 };
 

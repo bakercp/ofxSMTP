@@ -35,17 +35,18 @@ namespace ofx {
 namespace SMTP {
 
 
+/// \brief A collection of SMTP events.
+/// \todo Add progress once Poco supports it
+/// http://pocoproject.org/forum/viewtopic.php?f=12&t=5655&p=9788&hilit=smtp#p9788
 class ClientEvents
-    /// \brief A collection of SMTP events.
-    /// \todo Add progress once Poco supports it
-    /// http://pocoproject.org/forum/viewtopic.php?f=12&t=5655&p=9788&hilit=smtp#p9788
 {
 public:
+    /// \brief This event is triggered upon successful message delivery.
     ofEvent<Message::SharedPtr> onSMTPDelivery;
-        ///< \brief This event is triggered upon successful message delivery.
 
+    /// \brief This message is triggered upon client error.
     ofEvent<const Poco::Exception> onSMTPException;
-        ///< \brief This message is triggered upon client error.
+    
 };
 
 

@@ -34,30 +34,30 @@ namespace ofx {
 namespace SMTP {
 
 
+/// \brief A convenience settings file for Gmail.
+/// \details Gmail also works with port 587 and STARTTTLS encryption.
+///         Since port 587 is often blocked, we prefer 465 with SSL/TLS.
+///         To use alternative settings, manually configure your client
+///         with SMTPSSLTLSSettings.
 class GmailSettings: public SSLTLSSettings
-    /// \brief A convenience settings file for Gmail.
-    /// \details Gmail also works with port 587 and STARTTTLS encryption.
-    ///         Since port 587 is often blocked, we prefer 465 with SSL/TLS.
-    ///         To use alternative settings, manually configure your client
-    ///         with SMTPSSLTLSSettings.
 {
 public:
+    /// \brief Create a GmailSettings object.
+    /// \param username The account username.
+    /// \param password The account password.
     GmailSettings(const std::string& username,
                   const std::string& password);
-        ///< \brief Create a GmailSettings object.
-        ///< \param username The account username.
-        ///< \param password The account password.
 
+    /// \brief Destroy the GmailSettings.
     virtual ~GmailSettings();
-        ///< \brief Destroy the GmailSettings.
 
+    /// \brief The default Gmail host.
     static const std::string DEFAULT_GMAIL_HOST;
-        ///< \brief The default Gmail host.
 
     enum
     {
+        /// \brief The default Gmail port.
         DEFAULT_GMAIL_PORT = 465
-            ///< \brief The default Gmail port.
     };
 };
 

@@ -41,117 +41,121 @@ namespace ofx {
 namespace SMTP {
 
 
+/// \brief A base class representing SMTP Client settings.
 class Settings
-    /// \brief A base class representing SMTP Client settings.
 {
 public:
+    /// \brief The encryption type.
     enum EncryptionType
-        ///< \brief The encryption type.
     {
-        NONE,   ///< \brief Use no encyption.
-        SSLTLS, ///< \brief Use an SSLTLS strategy.
-        STARTTLS ///< \brief Use a STARTTLS connection.
+        /// \brief Use no encyption.
+        NONE,
+        /// \brief Use an SSLTLS strategy.
+        SSLTLS,
+        /// \brief Use a STARTTLS connection.
+        STARTTLS
     };
 
 
+    ///< \brief Create SMTP Settings.
+    ///< \param host The SMTP Server host.
+    ///< \param port The SMTP Server port.
+    ///< \param credentials The SMTP Credentials settings.
+    ///< \param encryption The SMTP Encryption settings.
+    ///< \param timeout The client timeout.
+    ///< \param messageSendDelay The delay between sending messages.
     Settings(const std::string& host = "",
              unsigned short port = DEFAULT_SMTP_PORT,
              Credentials credentials = Credentials(),
              EncryptionType encryptionType = NONE,
              Poco::Timespan timeout = DEFAULT_TIMEOUT,
              Poco::Timespan messageSendDelay = DEFAULT_MESSAGE_SEND_DELAY);
-        ///< \brief Create SMTP Settings.
-        ///< \param host The SMTP Server host.
-        ///< \param port The SMTP Server port.
-        ///< \param credentials The SMTP Credentials settings.
-        ///< \param encryption The SMTP Encryption settings.
-        ///< \param timeout The client timeout.
-        ///< \param messageSendDelay The delay between sending messages.
-    
+
+    /// \brief Destroy the SMTP Settings.
     virtual ~Settings();
-        ///< \brief Destroy the SMTP Settings.
 
+    /// \returns The SMTP Server host.
     std::string getHost() const;
-        ///< \returns The SMTP Server host.
 
+    /// \returns The SMTP Server port.
     unsigned short getPort() const;
-        ///< \returns The SMTP Server port.
 
+    /// \returns The SMTP Credential settings.
     Credentials getCredentials() const;
-        ///< \returns The SMTP Credential settings.
 
+    /// \returns The SMTP Encryption settings.
     EncryptionType getEncryptionType() const;
-        ///< \returns The SMTP Encryption settings.
 
+    /// \returns The client timeout.
     Poco::Timespan getTimeout() const;
-        ///< \returns The client timeout.
 
+    /// \returns The delay between sending message.
     Poco::Timespan getMessageSendDelay() const;
-        ///< \returns The delay between sending message.
 
+    /// \brief Load settings from an XML file.
+    /// \param xml The pre-parsed XML object.
+    /// \param accountName The account name within the XML file.
+    /// \note XML files can contain account information for multiple SMTP clients.
     static Settings loadFromXML(ofxXmlSettings xml,
                                 const std::string& accountName = "");
-        ///< \brief Load settings from an XML file.
-        ///< \param xml The pre-parsed XML object.
-        ///< \param accountName The account name within the XML file.
-        ///< \note XML files can contain account information for multiple SMTP clients.
-    
+
+    /// \brief Load settings from an XML file.
+    /// \param filename The file name for the XML file.
+    /// \param accountName The account name within the XML file.
+    /// \note XML files can contain account information for multiple SMTP clients.
     static Settings loadFromXML(const std::string& filename,
                                 const std::string& accountName = "");
-        ///< \brief Load settings from an XML file.
-        ///< \param filename The file name for the XML file.
-        ///< \param accountName The account name within the XML file.
-        ///< \note XML files can contain account information for multiple SMTP clients.
 
+    /// \brief The default client timeout.
     static const Poco::Timespan DEFAULT_TIMEOUT;
-        ///< \brief The default client timeout.
+
+    /// \brief The delay between sending messages.
     static const Poco::Timespan DEFAULT_MESSAGE_SEND_DELAY;
-        ///< \brief The delay between sending messages.
 
     enum
     {
+        /// \brief Default SMTP Port.
         DEFAULT_SMTP_PORT = 25,
-            ///< \brief Default SMTP Port.
+        /// \brief Default Secure SMTP Port.
         DEFAULT_SMTP_SSL_PORT = 425
-            ///< \brief Default Secure SMTP Port.
     };
 
 private:
+    /// \brief SMTP server host.
     std::string _host;
-        ///< \brief SMTP server host.
 
+    /// \brief SMTP server port.
     unsigned short _port;
-        ///< \brief SMTP server port.
-    
+
+    /// \brief Credentials settings.
     Credentials _credentials;
-        ///< \brief Credentials settings.
 
+    /// \brief Encryption settings.
     EncryptionType  _encryptionType;
-        ///< \brief Encryption settings.
 
+    /// \brief Client timeout.
     Poco::Timespan _timeout;
-        ///< \brief Client timeout.
 
+    /// \brief The delay between sending messages.
     Poco::Timespan _messageSendDelay;
-        ///< \brief The delay between sending messages.
 
 };
 
 
+/// \brief A convenience class representing Secure SMTP Client settings.
 class SSLTLSSettings: public Settings
-    /// \brief A convenience class representing Secure SMTP Client settings.
 {
 public:
+    /// \brief Create a SSLTLSSettings object.
+    /// \param host The SMTP Server host.
+    /// \param port The SMTP Server port.
+    /// \param credentials The SMTP Credentials settings.
     SSLTLSSettings(const std::string& host,
                    unsigned short port = DEFAULT_SMTP_SSL_PORT,
                    Credentials credentials = Credentials());
-        ///< \brief Create a SSLTLSSettings object.
-        ///< \param host The SMTP Server host.
-        ///< \param port The SMTP Server port.
-        ///< \param credentials The SMTP Credentials settings.
 
+    /// \brief Destroy the SSLTLSSettings.
     virtual ~SSLTLSSettings();
-        ///< \brief Destroy the SSLTLSSettings.
 
 };
 
