@@ -190,6 +190,8 @@ void Client::threadedFunction()
             }
 
             ofLogVerbose("Client::threadedFunction") << "Closing session.";
+            
+            session.close();
             pSocket->close();
 
         }
