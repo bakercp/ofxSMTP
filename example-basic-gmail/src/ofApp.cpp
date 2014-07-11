@@ -32,7 +32,7 @@ void ofApp::setup()
     ofSSLManager::registerClientEvents(this);
 
     // Use the simple gmail settings (also works for any gmail based account).
-    SMTP::GmailSettings settings("USERNAME@gmail.com","PASSWORD");
+    ofx::SMTP::GmailSettings settings("USERNAME@gmail.com","PASSWORD");
 
     // See SMTP::Settings for extensive configuration options.
 
@@ -66,7 +66,7 @@ void ofApp::keyPressed(int key)
 }
 
 
-void ofApp::onSMTPDelivery(SMTP::Message::SharedPtr& message)
+void ofApp::onSMTPDelivery(ofx::SMTP::Message::SharedPtr& message)
 {
     ofLogNotice("ofApp::onSMTPDelivery") << "Message Sent: " << message->getSubject();
 }

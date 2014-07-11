@@ -38,8 +38,8 @@ void ofApp::setup()
     senderEmail    = "Christopher Baker <info@christopherbaker.net>";
 
     // Load credentials and account settings from an xml file or element.
-    SMTP::Settings settings = SMTP::Settings::loadFromXML("example-smtp-account-settings.xml",
-                                                          "gmail");
+    ofx::SMTP::Settings settings = ofx::SMTP::Settings::loadFromXML("example-smtp-account-settings.xml",
+                                                                    "gmail");
     
     // Or use the simple gmail settings (also works for any gmail based account)
     // SMTP::GmailSettings settings("USERNAME@gmail.com","PASSWORD");
@@ -87,7 +87,7 @@ void ofApp::keyPressed(int key)
         // See http://pocoproject.org/docs/Poco.Net.MailMessage.html
 
         /// SMTP::Message::SharedPtr simply wraps Poco::Net::MailMessage.
-        SMTP::Message::SharedPtr message = SMTP::Message::makeShared();
+        ofx::SMTP::Message::SharedPtr message = ofx::SMTP::Message::makeShared();
 
         // Encode the sender and set it.
         message->setSender(Poco::Net::MailMessage::encodeWord(senderEmail,
@@ -126,7 +126,7 @@ void ofApp::keyPressed(int key)
 }
 
 
-void ofApp::onSMTPDelivery(SMTP::Message::SharedPtr& message)
+void ofApp::onSMTPDelivery(ofx::SMTP::Message::SharedPtr& message)
 {
     ofLogNotice("ofApp::onSMTPDelivery") << "Message Sent: " << message->getSubject();
 }

@@ -30,9 +30,6 @@
 #include "ofxSMTP.h"
 
 
-using namespace ofx;
-
-
 class ofApp: public ofBaseApp
 {
 public:
@@ -42,7 +39,7 @@ public:
     
     void keyPressed(int key);
 
-    void onSMTPDelivery(SMTP::Message::SharedPtr& message);
+    void onSMTPDelivery(ofx::SMTP::Message::SharedPtr& message);
     void onSMTPException(const Poco::Exception& exc);
 
     void onSSLClientVerificationError(Poco::Net::VerificationErrorArgs& args);
@@ -51,6 +48,6 @@ public:
     std::string recipientEmail;
     std::string senderEmail;
 
-    SMTP::Client smtp;
+    ofx::SMTP::Client smtp;
 
 };
