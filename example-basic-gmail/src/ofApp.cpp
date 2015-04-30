@@ -32,7 +32,7 @@ void ofApp::setup()
     ofSSLManager::registerClientEvents(this);
 
     // Use the simple gmail settings (also works for any gmail based account).
-    ofx::SMTP::GmailSettings settings("bakercp@gmail.com","yeaqimccmxobeykp");
+    ofx::SMTP::GmailSettings settings("USERNAME@gmail.com","YOUR_GMAIL_PASSWORD");
 
     // See SMTP::Settings for extensive configuration options.
 
@@ -86,7 +86,6 @@ void ofApp::onSMTPException(const ofx::SMTP::ErrorArgs& evt)
 
 void ofApp::onSSLClientVerificationError(Poco::Net::VerificationErrorArgs& args)
 {
-
     ofLogNotice("ofApp::onClientVerificationError") << std::endl << ofToString(args);
 
     // If you want to proceed, you must allow the user to inspect the certificate
@@ -102,5 +101,4 @@ void ofApp::onSSLPrivateKeyPassphraseRequired(std::string& passphrase)
     // passphrase to the `passphrase` argument.  For example:
 
     passphrase = ofSystemTextBoxDialog("Enter the Private Key Passphrase", "");
-    
 }
