@@ -94,6 +94,9 @@ Poco::Timespan Settings::getMessageSendDelay() const
 Settings Settings::loadFromXML(ofxXmlSettings xml,
                                const std::string& accountName)
 {
+    ofXml xmla;
+
+
     // if account name is an empty string, then the first unnamed account will be matched
     // expected an <accounts> tag as current root element with child <account> elements
 
@@ -233,10 +236,10 @@ Settings Settings::loadFromXML(const std::string& filename,
 {
     ofxXmlSettings XML;
 
-    if(XML.loadFile(filename))
+    if (XML.loadFile(filename))
     {
         XML.pushTag("accounts");
-        return loadFromXML(XML,accountName);
+        return loadFromXML(XML, accountName);
     }
     else
     {
@@ -258,6 +261,22 @@ SSLTLSSettings::SSLTLSSettings(const std::string& host,
 
 
 SSLTLSSettings::~SSLTLSSettings()
+{
+}
+
+
+STARTTLSSettings::STARTTLSSettings(const std::string& host,
+                                   unsigned short port,
+                                   Credentials credentials):
+Settings(host,
+         port,
+         Credentials(credentials),
+         Settings::STARTTLS)
+{
+}
+
+
+STARTTLSSettings::~STARTTLSSettings()
 {
 }
 

@@ -32,7 +32,7 @@ void ofApp::setup()
     ofSSLManager::registerClientEvents(this);
 
     // Use the simple gmail settings (also works for any gmail based account).
-    ofx::SMTP::GmailSettings settings("USERNAME@gmail.com","PASSWORD");
+    ofx::SMTP::GmailSettings settings("bakercp@gmail.com","yeaqimccmxobeykp");
 
     // See SMTP::Settings for extensive configuration options.
 
@@ -72,9 +72,15 @@ void ofApp::onSMTPDelivery(ofx::SMTP::Message::SharedPtr& message)
 }
 
 
-void ofApp::onSMTPException(const Poco::Exception& exc)
+void ofApp::onSMTPException(const ofx::SMTP::ErrorArgs& evt)
 {
-    ofLogError("ofApp::onSMTPException") << exc.displayText();
+    ofLogError("ofApp::onSMTPException") << evt.getError().displayText();
+
+    if (evt.getMessage())
+    {
+        ofLogError("ofApp::onSMTPException") << evt.getMessage()->getSubject();
+    }
+
 }
 
 
@@ -86,10 +92,9 @@ void ofApp::onSSLClientVerificationError(Poco::Net::VerificationErrorArgs& args)
     // If you want to proceed, you must allow the user to inspect the certificate
     // and set `args.setIgnoreError(true);` if they want to continue.
 
-    args.setIgnoreError(true);
+    // args.setIgnoreError(true);
 
 }
-
 
 void ofApp::onSSLPrivateKeyPassphraseRequired(std::string& passphrase)
 {
@@ -99,4 +104,3 @@ void ofApp::onSSLPrivateKeyPassphraseRequired(std::string& passphrase)
     passphrase = ofSystemTextBoxDialog("Enter the Private Key Passphrase", "");
     
 }
-

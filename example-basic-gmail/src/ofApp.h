@@ -39,7 +39,7 @@ public:
     void keyPressed(int key);
 
     void onSMTPDelivery(ofx::SMTP::Message::SharedPtr& message);
-    void onSMTPException(const Poco::Exception& exc);
+    void onSMTPException(const ofx::SMTP::ErrorArgs& evt);
 
     void onSSLClientVerificationError(Poco::Net::VerificationErrorArgs& args);
     void onSSLPrivateKeyPassphraseRequired(std::string& passphrase);

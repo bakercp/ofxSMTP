@@ -12,28 +12,40 @@
 	<dict>
 		<key>15017C91-C092-447A-B744-FED377721E91</key>
 		<string>ssh://github.com/bakercp/ofxSMTP.git</string>
+		<key>2DE9C8846D9375EAACFABA8963120E8E7719BAF5</key>
+		<string>github.com:bakercp/openFrameworks.git</string>
 		<key>3B34514A-1075-456B-8AF0-DAEFD698200B</key>
 		<string>ssh://github.com/bakercp/openFrameworks.git</string>
+		<key>6C552ABC1666FC3F39348C365841AA82BFBDAFA1</key>
+		<string>github.com:bakercp/ofxSMTP.git</string>
+		<key>6D6FDB373C9A9EB614FB047E30EC71CD5377F13C</key>
+		<string>github.com:bakercp/ofxSSLManager.git</string>
 		<key>917DD670-F943-4B4B-A100-AB4CFEB25B6B</key>
 		<string>ssh://github.com/bakercp/ofxSSLManager.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>addons/ofxSMTP/example-basic-gmail/example-basic-gmail.xcodeproj/project.xcworkspace</string>
+	<string>example-basic-gmail/example-basic-gmail.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>15017C91-C092-447A-B744-FED377721E91</key>
-		<string>../../..</string>
+		<string>../../../..</string>
+		<key>2DE9C8846D9375EAACFABA8963120E8E7719BAF5</key>
+		<string>../../../..</string>
 		<key>3B34514A-1075-456B-8AF0-DAEFD698200B</key>
-		<string>../../../../..</string>
+		<string>../../../../openFrameworks</string>
+		<key>6C552ABC1666FC3F39348C365841AA82BFBDAFA1</key>
+		<string>../../..</string>
+		<key>6D6FDB373C9A9EB614FB047E30EC71CD5377F13C</key>
+		<string>../../../../ofxSSLManager</string>
 		<key>917DD670-F943-4B4B-A100-AB4CFEB25B6B</key>
 		<string>../../../../ofxSSLManager</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/bakercp/ofxSMTP.git</string>
+	<string>github.com:bakercp/ofxSMTP.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>3B34514A-1075-456B-8AF0-DAEFD698200B</string>
+	<string>6C552ABC1666FC3F39348C365841AA82BFBDAFA1</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -42,7 +54,31 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>15017C91-C092-447A-B744-FED377721E91</string>
 			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2DE9C8846D9375EAACFABA8963120E8E7719BAF5</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6C552ABC1666FC3F39348C365841AA82BFBDAFA1</string>
+			<key>IDESourceControlWCCName</key>
 			<string>ofxSMTP</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6D6FDB373C9A9EB614FB047E30EC71CD5377F13C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxSSLManager</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>

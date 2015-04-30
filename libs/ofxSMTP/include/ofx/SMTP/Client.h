@@ -83,7 +83,7 @@ public:
 
     /// \brief Get number in the outbox.
     /// \returns The number of messages queued in the outbox.
-    std::size_t getOutboxSize();
+    std::size_t getOutboxSize() const;
 
     /// \brief The event callbacks.
     ClientEvents events;
@@ -104,7 +104,7 @@ private:
     /// \brief The message outbox queue.
     std::deque<Message::SharedPtr> _outbox;
 
-    /// \brief THe current message being sent.
+    /// \brief The current message being sent.
     Message::SharedPtr _currentMessage;
 
     /// \brief The send condition.

@@ -117,7 +117,9 @@ public:
         /// \brief Default SMTP Port.
         DEFAULT_SMTP_PORT = 25,
         /// \brief Default Secure SMTP Port.
-        DEFAULT_SMTP_SSL_PORT = 425
+        DEFAULT_SMTP_SSL_PORT = 425,
+        /// \brief Default secure STARTTLS SMTP Port.
+        DEFAULT_SMTP_STARTTLS_PORT = 587
     };
 
 private:
@@ -158,6 +160,26 @@ public:
     virtual ~SSLTLSSettings();
 
 };
+
+
+/// \brief A convenience class representing STARTTLS SMTP Client settings.
+class STARTTLSSettings: public Settings
+{
+public:
+    /// \brief Create a STARTTLSSettings object.
+    /// \param host The SMTP Server host.
+    /// \param port The SMTP Server port.
+    /// \param credentials The SMTP Credentials settings.
+    STARTTLSSettings(const std::string& host,
+                     unsigned short port = DEFAULT_SMTP_STARTTLS_PORT,
+                     Credentials credentials = Credentials());
+
+    /// \brief Destroy the SSLTLSSettings.
+    virtual ~STARTTLSSettings();
+    
+};
+
+
 
 
 } } // namespace ofx::SMTP

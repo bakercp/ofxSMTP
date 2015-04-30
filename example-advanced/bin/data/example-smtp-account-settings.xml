@@ -1,8 +1,8 @@
 <accounts>
     <account name="gmail" type="smtp">
         <host>smtp.gmail.com</host>
-        <port>465</port>
-        <encryption>SSLTLS</encryption>
+        <port>587</port>
+        <encryption>STARTTLS</encryption>
         <!-- <encryption>NONE</encryption> -->
         <!-- <encryption>STARTTLS</encryption> -->
 

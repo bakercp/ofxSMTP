@@ -109,7 +109,7 @@ void Client::send(Message::SharedPtr message)
 
 void Client::threadedFunction()
 {
-    while(isThreadRunning())
+    while (isThreadRunning())
     {
         Poco::Net::SocketAddress socketAddress(_settings.getHost(),
                                                _settings.getPort());
@@ -117,7 +117,7 @@ void Client::threadedFunction()
 
         try
         {
-            if(Settings::SSLTLS == _settings.getEncryptionType())
+            if (Settings::SSLTLS == _settings.getEncryptionType())
             {
                 // Create a Poco::Net::SecureStreamSocket pointer.
                 Poco::Net::SecureStreamSocket* _socket = 0;
@@ -202,14 +202,24 @@ void Client::threadedFunction()
         {
             if (_currentMessage)
             {
-                mutex.lock();
-                _outbox.push_front(_currentMessage);
-                _currentMessage.reset();
-                mutex.unlock();
+                // 500 codes are permanent negative errors.
+                if (5 != (exc.code() / 100))
+                {
+                    mutex.lock();
+                    _outbox.push_front(_currentMessage);
+                    mutex.unlock();
+                }
             }
 
-            ofLogError("Client::threadedFunction") << exc.name() << " : " << exc.displayText();
             pSocket->close();
+
+            ErrorArgs args(exc, _currentMessage);
+            ofNotifyEvent(events.onSMTPException,
+                          args,
+                          this);
+
+            _currentMessage.reset();
+
         }
         catch (Poco::Net::SSLException& exc)
         {
@@ -217,7 +227,6 @@ void Client::threadedFunction()
             {
                 mutex.lock();
                 _outbox.push_front(_currentMessage);
-                _currentMessage.reset();
                 mutex.unlock();
             }
 
@@ -228,7 +237,13 @@ void Client::threadedFunction()
                 ofLogError("Client::threadedFunction") << "\t\t" << "This may be because you asked your SSL context to verify the server's certificate, but your certificate authority (ca) file is missing.";
             }
 
-            ofNotifyEvent(events.onSMTPException, exc, this);
+            ErrorArgs args(exc, _currentMessage);
+            ofNotifyEvent(events.onSMTPException,
+                          args,
+                          this);
+
+            _currentMessage.reset();
+            
         }
         catch (Poco::Net::NetException& exc)
         {
@@ -236,12 +251,18 @@ void Client::threadedFunction()
             {
                 mutex.lock();
                 _outbox.push_front(_currentMessage);
-                _currentMessage.reset();
                 mutex.unlock();
             }
 
             ofLogError("Client::threadedFunction") << exc.name() << " : " << exc.displayText();
-            ofNotifyEvent(events.onSMTPException, exc, this);
+
+                       ErrorArgs args(exc, _currentMessage);
+            ofNotifyEvent(events.onSMTPException,
+                          args,
+                          this);
+
+            _currentMessage.reset();
+            
         }
         catch (Poco::Exception &exc)
         {
@@ -249,12 +270,18 @@ void Client::threadedFunction()
             {
                 mutex.lock();
                 _outbox.push_front(_currentMessage);
-                _currentMessage.reset();
                 mutex.unlock();
             }
 
             ofLogError("Client::threadedFunction") << exc.name() << " : " << exc.displayText();
-            ofNotifyEvent(events.onSMTPException, exc, this);
+
+            ErrorArgs args(exc, _currentMessage);
+            ofNotifyEvent(events.onSMTPException,
+                          args,
+                          this);
+
+            _currentMessage.reset();
+            
         }
         catch (std::exception& exc)
         {
@@ -262,14 +289,19 @@ void Client::threadedFunction()
             {
                 mutex.lock();
                 _outbox.push_front(_currentMessage);
-                _currentMessage.reset();
                 mutex.unlock();
             }
 
             ofLogError("Client::threadedFunction") << exc.what();
+
+            ErrorArgs args(Poco::Exception(exc.what()), _currentMessage);
+
             ofNotifyEvent(events.onSMTPException,
-                          Poco::Exception(exc.what()),
+                          args,
                           this);
+
+            _currentMessage.reset();
+            
         }
         
         ofLogVerbose("Client::threadedFunction") << "Waiting for more messages.";
@@ -280,7 +312,7 @@ void Client::threadedFunction()
 }
 
 
-std::size_t Client::getOutboxSize()
+std::size_t Client::getOutboxSize() const
 {
     ofScopedLock lock(mutex);
     return _outbox.size();

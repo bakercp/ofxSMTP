@@ -35,6 +35,47 @@ namespace ofx {
 namespace SMTP {
 
 
+class ErrorArgs
+{
+public:
+    ErrorArgs(const Poco::Exception& error):
+        _error(error)
+    {
+    }
+
+
+    ErrorArgs(const Poco::Exception& error,
+              Message::SharedPtr message):
+        _error(error),
+        _message(message)
+    {
+    }
+
+
+    ~ErrorArgs()
+    {
+    }
+
+
+    /// \returns The error message.
+    const Poco::Exception& getError() const
+    {
+        return _error;
+    }
+
+
+    /// \returns A valid pointer to the associated message, iff available.
+    Message::SharedPtr getMessage() const
+    {
+        return _message;
+    }
+
+protected:
+    const Poco::Exception _error;
+    Message::SharedPtr _message;
+};
+
+
 /// \brief A collection of SMTP events.
 /// \todo Add progress once Poco supports it
 /// http://pocoproject.org/forum/viewtopic.php?f=12&t=5655&p=9788&hilit=smtp#p9788
@@ -45,7 +86,7 @@ public:
     ofEvent<Message::SharedPtr> onSMTPDelivery;
 
     /// \brief This message is triggered upon client error.
-    ofEvent<const Poco::Exception> onSMTPException;
+    ofEvent<const ErrorArgs> onSMTPException;
     
 };
 

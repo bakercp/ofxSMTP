@@ -35,11 +35,11 @@ namespace SMTP {
 
 
 /// \brief A convenience settings file for Gmail.
-/// \details Gmail also works with port 587 and STARTTTLS encryption.
-///         Since port 587 is often blocked, we prefer 465 with SSL/TLS.
-///         To use alternative settings, manually configure your client
-///         with SMTPSSLTLSSettings.
-class GmailSettings: public SSLTLSSettings
+/// \details Gmail also works on port 465 with SSL/TLS encryption. Since port
+///          587 is often blocked, the user might prefer to use port 465 with
+///          SSL/TLS encryption. To use alternative settings, manually configure
+//           your client settings.
+class GmailSettings: public STARTTLSSettings
 {
 public:
     /// \brief Create a GmailSettings object.
@@ -57,7 +57,7 @@ public:
     enum
     {
         /// \brief The default Gmail port.
-        DEFAULT_GMAIL_PORT = 465
+        DEFAULT_GMAIL_PORT = DEFAULT_SMTP_STARTTLS_PORT
     };
 };
 
