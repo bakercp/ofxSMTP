@@ -146,7 +146,6 @@ void ofApp::onSMTPException(const ofx::SMTP::ErrorArgs& evt)
 
 void ofApp::onSSLClientVerificationError(Poco::Net::VerificationErrorArgs& args)
 {
-
     ofLogNotice("ofApp::onClientVerificationError") << std::endl << ofToString(args);
 
     // If you want to proceed, you must allow the user to inspect the certificate
