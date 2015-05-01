@@ -1,3 +1,1 @@
 ofxSMTP
-ofxSSLManager
-ofxXmlSettings
