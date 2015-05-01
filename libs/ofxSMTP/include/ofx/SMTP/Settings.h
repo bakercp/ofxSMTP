@@ -28,12 +28,8 @@
 
 
 #include <string>
-#include "Poco/Exception.h"
 #include "Poco/Timespan.h"
-#include "Poco/Net/Context.h"
-#include "Poco/Net/SMTPClientSession.h"
-#include "ofUtils.h"
-#include "ofxXmlSettings.h"
+#include "Poco/Util/AbstractConfiguration.h"
 #include "ofx/SMTP/Credentials.h"
 
 
@@ -56,12 +52,11 @@ public:
         STARTTLS
     };
 
-
     ///< \brief Create SMTP Settings.
-    ///< \param host The SMTP Server host.
-    ///< \param port The SMTP Server port.
+    ///< \param host The SMTP server host.
+    ///< \param port The SMTP server port.
     ///< \param credentials The SMTP Credentials settings.
-    ///< \param encryption The SMTP Encryption settings.
+    ///< \param encryption The SMTP encryption settings.
     ///< \param timeout The client timeout.
     ///< \param messageSendDelay The delay between sending messages.
     Settings(const std::string& host = "",
@@ -93,18 +88,15 @@ public:
     Poco::Timespan getMessageSendDelay() const;
 
     /// \brief Load settings from an XML file.
-    /// \param xml The pre-parsed XML object.
-    /// \param accountName The account name within the XML file.
-    /// \note XML files can contain account information for multiple SMTP clients.
-    static Settings loadFromXML(ofxXmlSettings xml,
-                                const std::string& accountName = "");
-
-    /// \brief Load settings from an XML file.
     /// \param filename The file name for the XML file.
-    /// \param accountName The account name within the XML file.
-    /// \note XML files can contain account information for multiple SMTP clients.
-    static Settings loadFromXML(const std::string& filename,
-                                const std::string& accountName = "");
+    /// \returns Settings loaded from a file.
+    static Settings loadFromXML(const std::string& filename);
+
+    /// \brief Load the settings from a Poco::Util::AbstractConfiguration.
+    /// \param config the Poco::Util::AbstractConfiguration.
+    /// \returns Settings loaded from a file.
+    /// \throws Poco::NotFoundException and others.
+    static Settings load(const Poco::Util::AbstractConfiguration& config);
 
     /// \brief The default client timeout.
     static const Poco::Timespan DEFAULT_TIMEOUT;

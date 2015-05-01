@@ -24,6 +24,10 @@
 
 
 #include "ofx/SMTP/Settings.h"
+#include "Poco/UTF8String.h"
+#include "Poco/SAX/InputSource.h"
+#include "Poco/Util/XMLConfiguration.h"
+#include "ofUtils.h"
 
 
 namespace ofx {
@@ -91,161 +95,81 @@ Poco::Timespan Settings::getMessageSendDelay() const
 }
 
 
-Settings Settings::loadFromXML(ofxXmlSettings xml,
-                               const std::string& accountName)
+Settings Settings::loadFromXML(const std::string& filename)
 {
-    ofXml xmla;
-
-
-    // if account name is an empty string, then the first unnamed account will be matched
-    // expected an <accounts> tag as current root element with child <account> elements
-
-    Settings settings;
-
-    int numAccounts = xml.getNumTags("account:accounts");
-    
-    int accountIndex = -1;
-    
-    for (std::size_t i = 0; i < numAccounts; ++i)
+    try
     {
-        std::string _accountName = xml.getAttribute("account", "name", "", i);
-
-        if (_accountName == accountName)
-        {
-            accountIndex = i;
-            break;
-        }
+        Poco::AutoPtr<Poco::Util::XMLConfiguration> pConf(new Poco::Util::XMLConfiguration(ofToDataPath(filename, true)));
+        return load(*pConf);
     }
-    
-    if (accountIndex < 0)
+    catch (const Poco::Exception& exc)
     {
-        ofLogWarning("Settings::loadFromXML") << "No account called " << accountName << " found in XML file.";
-        return settings;
+        ofLogError("Settings::loadFromXML") << exc.displayText();
+        return Settings();
     }
-    
-    std::string accountType = xml.getAttribute("account",
-                                               "type",
-                                               "",
-                                               accountIndex);
-    
-    if ("smtp" != accountType && "SMTP" != accountType)
-    {
-        ofLogWarning("Settings::loadFromXML") << "Account type \"" << accountType << "\" is invalid.";
-        return settings;
-    }
-    
-    std::string host = xml.getValue("account:host", "", accountIndex);
-    
-    if (host.empty())
-    {
-        ofLogWarning("Settings::loadFromXML") << "Empty host field.";
-        return settings;
-    }
-    
-    unsigned short port = xml.getValue("account:port", 25, accountIndex);
-    
-    int timeoutInt = xml.getValue("account:timeout", 30000, accountIndex);
-    
-    Poco::Timespan timeout(timeoutInt * Poco::Timespan::MILLISECONDS);
-    
-    int messageSendDelayInt = xml.getValue("account:timeout",
-                                           100,
-                                           accountIndex);
-    
-    Poco::Timespan messageSendDelay(messageSendDelayInt * Poco::Timespan::MILLISECONDS);
-    
-    std::string username = xml.getValue("account:authentication:username",
-                                        "",
-                                        accountIndex);
+}
 
-    std::string password = xml.getValue("account:authentication:password",
-                                        "",
-                                        accountIndex);
 
-    std::string loginMethodString = xml.getValue("account:authentication:type",
-                                                 "AUTH_NONE",
-                                                 accountIndex);
-    
+Settings Settings::load(const Poco::Util::AbstractConfiguration& config)
+{
+    std::string loginMethodString = config.getString("authentication.type", "AUTH_NONE");
+
     Credentials::LoginMethod loginMethod = Poco::Net::SMTPClientSession::AUTH_NONE;
-    
-    if ("AUTH_NONE" == loginMethodString)
+
+    if (0 == Poco::UTF8::icompare(loginMethodString, "AUTH_NONE"))
     {
         loginMethod = Poco::Net::SMTPClientSession::AUTH_NONE;
     }
-    else if ("AUTH_LOGIN" == loginMethodString)
+    else if (0 == Poco::UTF8::icompare(loginMethodString, "AUTH_LOGIN"))
     {
         loginMethod = Poco::Net::SMTPClientSession::AUTH_LOGIN;
     }
-    else if ("AUTH_CRAM_MD5" == loginMethodString)
+    else if (0 == Poco::UTF8::icompare(loginMethodString, "AUTH_CRAM_MD5"))
     {
         loginMethod = Poco::Net::SMTPClientSession::AUTH_CRAM_MD5;
     }
-    else if ("AUTH_CRAM_SHA1" == loginMethodString)
+    else if (0 == Poco::UTF8::icompare(loginMethodString, "AUTH_CRAM_SHA1"))
     {
         loginMethod = Poco::Net::SMTPClientSession::AUTH_CRAM_SHA1;
     }
-    else if ("AUTH_PLAIN" == loginMethodString)
+    else if (0 == Poco::UTF8::icompare(loginMethodString, "AUTH_PLAIN"))
     {
         loginMethod = Poco::Net::SMTPClientSession::AUTH_PLAIN;
     }
     else
     {
-        ofLogWarning("Settings::loadFromXML") << "Unsupported authentication type: " << loginMethodString;
-        return settings;
+        throw Poco::InvalidArgumentException("Unsupported authentication type: " + loginMethodString);
     }
-    
-    std::string encryptionTypeString = xml.getValue("account:encryption",
-                                                    "NONE",
-                                                    accountIndex);
-    
-    Settings::EncryptionType encryptionType;
-    
-    if ("NONE" == encryptionTypeString)
+
+    std::string encryptionTypeString = config.getString("encryption", "NONE");
+
+    Settings::EncryptionType encryptionType = NONE;
+
+    if (0 == Poco::UTF8::icompare(encryptionTypeString, "NONE"))
     {
         encryptionType = NONE;
     }
-    else if ("SSLTLS" == encryptionTypeString)
+    else if (0 == Poco::UTF8::icompare(encryptionTypeString, "SSLTLS"))
     {
         encryptionType = SSLTLS;
     }
-    else if ("STARTTLS" == encryptionTypeString)
+    else if (0 == Poco::UTF8::icompare(encryptionTypeString, "STARTTLS"))
     {
         encryptionType = STARTTLS;
     }
     else
     {
-        ofLogWarning("Settings::loadFromXML") << "Unsupported encyption type: " << encryptionTypeString;
-        return settings;
+        throw Poco::InvalidArgumentException("Unsupported encryption type: " + encryptionTypeString);
     }
-    
-    settings = Settings(host,
-                        port,
-                        Credentials(username,
-                                    password,
-                                    loginMethod),
-                        encryptionType,
-                        timeout,
-                        messageSendDelay);
-    
-    return settings;
-}
 
-
-Settings Settings::loadFromXML(const std::string& filename,
-                               const std::string& accountName)
-{
-    ofxXmlSettings XML;
-
-    if (XML.loadFile(filename))
-    {
-        XML.pushTag("accounts");
-        return loadFromXML(XML, accountName);
-    }
-    else
-    {
-        ofLogError("Settings::loadFromXML") << "Unable to load XML from " << filename << XML.doc.ErrorDesc() << ".  Loading defaults.";
-        return Settings();
-    }
+    return Settings(config.getString("host"),
+                    config.getInt("port", 25),
+                    Credentials(config.getString("authentication.username", ""),
+                                config.getString("authentication.password", ""),
+                                loginMethod),
+                    encryptionType,
+                    Poco::Timespan(config.getInt("timeout", 30000) * Poco::Timespan::MILLISECONDS),
+                    Poco::Timespan(config.getInt("message-send-delay", 100) * Poco::Timespan::MILLISECONDS));
 }
 
 

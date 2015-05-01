@@ -45,6 +45,7 @@
 #include "ofx/SMTP/Types.h"
 #include "ofx/SMTP/Events.h"
 #include "ofSSLManager.h"
+#include "ofThread.h"
 
 
 namespace ofx {
