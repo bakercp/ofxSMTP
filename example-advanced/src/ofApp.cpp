@@ -35,14 +35,13 @@ void ofApp::setup()
     recipientEmail = "info@christopherbaker.net";
 
     // Set the sender email and display name.
-    senderEmail    = "Christopher Baker <info@christopherbaker.net>";
+    senderEmail = "Christopher Baker <info@christopherbaker.net>";
 
     // Load credentials and account settings from an xml file or element.
-    ofx::SMTP::Settings settings = ofx::SMTP::Settings::loadFromXML("example-smtp-account-settings.xml",
-                                                                    "gmail");
+    ofx::SMTP::Settings settings = ofx::SMTP::Settings::loadFromXML("example-smtp-account-settings.xml");
     
     // Or use the simple gmail settings (also works for any gmail based account)
-    // SMTP::GmailSettings settings("USERNAME@gmail.com","PASSWORD");
+    // ofx::SMTP::GmailSettings settings("USERNAME@gmail.com","PASSWORD");
 
     // See SMTP::Settings for extensive configuration options.
 

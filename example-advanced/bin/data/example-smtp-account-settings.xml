@@ -1,23 +1,21 @@
-<accounts>
-    <account name="gmail" type="smtp">
-        <host>smtp.gmail.com</host>
-        <port>587</port>
-        <encryption>STARTTLS</encryption>
-        <!-- <encryption>NONE</encryption> -->
-        <!-- <encryption>STARTTLS</encryption> -->
+<account>
+    <host>smtp.gmail.com</host>
+    <port>587</port>
+    <encryption>STARTTLS</encryption>
+    <!-- <encryption>NONE</encryption> -->
+    <!-- <encryption>STARTTLS</encryption> -->
 
-        <!-- smtp timeout in milliseconds -->
-        <timeout>30000</timeout>
-        <!-- time between messages in milliseconds -->
-        <message-send-delay>100</message-send-delay>
-        <authentication>
-            <username>USERNAME</username>
-            <password>PASSWORD</password>
-            <type>AUTH_LOGIN</type>
-            <!-- <type>AUTH_NONE</type> -->
-            <!-- <type>AUTH_CRAM_MD5</type> -->
-            <!-- <type>AUTH_CRAM_SHA1</type> -->
-            <!-- <type>AUTH_PLAIN</type> -->
-        </authentication>
-    </account>
-</accounts>
+    <!-- smtp timeout in milliseconds -->
+    <timeout>30000</timeout>
+    <!-- time between messages in milliseconds -->
+    <message-send-delay>100</message-send-delay>
+    <authentication>
+        <username>USERNAME</username>
+        <password>PASSWORD</password>
+        <type>AUTH_LOGIN</type>
+        <!-- <type>AUTH_NONE</type> -->
+        <!-- <type>AUTH_CRAM_MD5</type> -->
+        <!-- <type>AUTH_CRAM_SHA1</type> -->
+        <!-- <type>AUTH_PLAIN</type> -->
+    </authentication>
+</account>
