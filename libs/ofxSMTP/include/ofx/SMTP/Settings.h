@@ -92,6 +92,14 @@ public:
     /// \returns Settings loaded from a file.
     static Settings loadFromXML(const std::string& filename);
 
+//#if POCO_VERSION >= 0x01050000
+//
+//    /// \brief Load settings from an XML file.
+//    /// \param filename The file name for the XML file.
+//    /// \returns Settings loaded from a file.
+//    static Settings loadFromJSON(const std::string& filename);
+//#endif
+
     /// \brief Load the settings from a Poco::Util::AbstractConfiguration.
     /// \param config the Poco::Util::AbstractConfiguration.
     /// \returns Settings loaded from a file.

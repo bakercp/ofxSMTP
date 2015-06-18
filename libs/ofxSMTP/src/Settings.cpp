@@ -25,8 +25,12 @@
 
 #include "ofx/SMTP/Settings.h"
 #include "Poco/UTF8String.h"
+#include "Poco/Version.h"
 #include "Poco/SAX/InputSource.h"
 #include "Poco/Util/XMLConfiguration.h"
+#if POCO_VERSION >= 0x01050000
+    #include "Poco/Util/JSONConfiguration.h"
+#endif
 #include "ofUtils.h"
 
 
@@ -108,6 +112,25 @@ Settings Settings::loadFromXML(const std::string& filename)
         return Settings();
     }
 }
+
+//#if POCO_VERSION >= 0x01050000
+//Settings Settings::loadFromJSON(const std::string& filename)
+//{
+//    try
+//    {
+//        Poco::AutoPtr<Poco::Util::JSONConfiguration> pConf(new Poco::Util::JSONConfiguration(ofToDataPath(filename, true)));
+//
+//        Poco::AutoPtr<Poco::Util::AbstractConfiguration> view= pConf->createView("account");
+//
+//        return load(*view);
+//    }
+//    catch (const Poco::Exception& exc)
+//    {
+//        ofLogError("Settings::loadFromJSON") << exc.displayText();
+//        return Settings();
+//    }
+//}
+//#endif
 
 
 Settings Settings::load(const Poco::Util::AbstractConfiguration& config)

@@ -85,7 +85,7 @@ void Client::send(const std::string& to,
 
 void Client::send(Message::SharedPtr message)
 {
-    if(_isInited)
+    if (_isInited)
     {
         ofLogVerbose("Client::send") << "Pushing message to outbox.";
 

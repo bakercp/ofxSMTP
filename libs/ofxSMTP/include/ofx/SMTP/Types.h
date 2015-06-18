@@ -26,25 +26,6 @@
 #pragma once
 
 
-#if (_MSC_VER)
-#include <memory>
-#else
-#include <tr1/memory>
-// import smart pointers utils into std
-namespace std {
-#if __cplusplus<201103L
-	using std::tr1::shared_ptr;
-	using std::tr1::weak_ptr;
-	using std::tr1::enable_shared_from_this;
-#endif
-	using std::tr1::static_pointer_cast;
-	using std::tr1::dynamic_pointer_cast;
-	using std::tr1::const_pointer_cast;
-	using std::tr1::__dynamic_cast_tag;
-}
-#endif
-
-
 #include "Poco/Net/MailMessage.h"
 
 
