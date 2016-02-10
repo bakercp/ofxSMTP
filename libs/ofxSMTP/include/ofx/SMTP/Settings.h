@@ -1,6 +1,6 @@
 // =============================================================================
 //
-// Copyright (c) 2013-2014 Christopher Baker <http://christopherbaker.net>
+// Copyright (c) 2013-2016 Christopher Baker <http://christopherbaker.net>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,6 @@
 // THE SOFTWARE.
 //
 // =============================================================================
-
 
 
 #pragma once
@@ -60,7 +59,7 @@ public:
     ///< \param timeout The client timeout.
     ///< \param messageSendDelay The delay between sending messages.
     Settings(const std::string& host = "",
-             unsigned short port = DEFAULT_SMTP_PORT,
+             uint16_t port = DEFAULT_SMTP_PORT,
              Credentials credentials = Credentials(),
              EncryptionType encryptionType = NONE,
              Poco::Timespan timeout = DEFAULT_TIMEOUT,
@@ -73,7 +72,7 @@ public:
     std::string getHost() const;
 
     /// \returns The SMTP Server port.
-    unsigned short getPort() const;
+    uint16_t getPort() const;
 
     /// \returns The SMTP Credential settings.
     Credentials getCredentials() const;
@@ -127,7 +126,7 @@ private:
     std::string _host;
 
     /// \brief SMTP server port.
-    unsigned short _port;
+    uint16_t _port;
 
     /// \brief Credentials settings.
     Credentials _credentials;
@@ -153,7 +152,7 @@ public:
     /// \param port The SMTP Server port.
     /// \param credentials The SMTP Credentials settings.
     SSLTLSSettings(const std::string& host,
-                   unsigned short port = DEFAULT_SMTP_SSL_PORT,
+                   uint16_t port = DEFAULT_SMTP_SSL_PORT,
                    Credentials credentials = Credentials());
 
     /// \brief Destroy the SSLTLSSettings.
@@ -171,7 +170,7 @@ public:
     /// \param port The SMTP Server port.
     /// \param credentials The SMTP Credentials settings.
     STARTTLSSettings(const std::string& host,
-                     unsigned short port = DEFAULT_SMTP_STARTTLS_PORT,
+                     uint16_t port = DEFAULT_SMTP_STARTTLS_PORT,
                      Credentials credentials = Credentials());
 
     /// \brief Destroy the SSLTLSSettings.

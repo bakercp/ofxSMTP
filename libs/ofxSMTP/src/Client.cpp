@@ -1,6 +1,6 @@
 // =============================================================================
 //
-// Copyright (c) 2013-2014 Christopher Baker <http://christopherbaker.net>
+// Copyright (c) 2013-2016 Christopher Baker <http://christopherbaker.net>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -312,9 +312,9 @@ void Client::threadedFunction()
 }
 
 
-std::size_t Client::getOutboxSize() const
+std::size_t Client::getOutboxSize()// const
 {
-    ofScopedLock lock(mutex);
+    std::unique_lock<std::mutex> lock(mutex);
     return _outbox.size();
 }
 

@@ -1,6 +1,6 @@
 // =============================================================================
 //
-// Copyright (c) 2013-2014 Christopher Baker <http://christopherbaker.net>
+// Copyright (c) 2013-2016 Christopher Baker <http://christopherbaker.net>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -43,7 +43,7 @@ const Poco::Timespan Settings::DEFAULT_MESSAGE_SEND_DELAY= Poco::Timespan(100 * 
 
 
 Settings::Settings(const std::string& host,
-                   unsigned short port,
+                   uint16_t port,
                    Credentials credentials,
                    EncryptionType encryptionType,
                    Poco::Timespan timeout,
@@ -69,7 +69,7 @@ std::string Settings::getHost() const
 }
 
 
-unsigned short Settings::getPort() const
+uint16_t Settings::getPort() const
 {
     return _port;
 }
@@ -197,7 +197,7 @@ Settings Settings::load(const Poco::Util::AbstractConfiguration& config)
 
 
 SSLTLSSettings::SSLTLSSettings(const std::string& host,
-                               unsigned short port,
+                               uint16_t port,
                                Credentials credentials):
     Settings(host,
              port,
@@ -213,7 +213,7 @@ SSLTLSSettings::~SSLTLSSettings()
 
 
 STARTTLSSettings::STARTTLSSettings(const std::string& host,
-                                   unsigned short port,
+                                   uint16_t port,
                                    Credentials credentials):
 Settings(host,
          port,

@@ -1,6 +1,6 @@
 // =============================================================================
 //
-// Copyright (c) 2013-2014 Christopher Baker <http://christopherbaker.net>
+// Copyright (c) 2013-2016 Christopher Baker <http://christopherbaker.net>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -38,13 +38,15 @@ class Message
 {
 public:
     /// \brief A typedef to a SharedPtr.
+    /// \deprecated
     typedef std::shared_ptr<Poco::Net::MailMessage> SharedPtr;
 
     /// \brief Make a shared pointer;
     /// \todo Replace with std::make_shared with C++11.
-    static SharedPtr makeShared()
+    /// \deprecated
+    static std::shared_ptr<Poco::Net::MailMessage> makeShared()
     {
-        return SharedPtr(new Poco::Net::MailMessage());
+        return std::make_shared<Poco::Net::MailMessage>();
     }
     
 private:

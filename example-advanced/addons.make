@@ -1,1 +1,2 @@
 ofxSMTP
+ofxSSLManager
