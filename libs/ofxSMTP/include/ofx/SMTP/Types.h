@@ -26,6 +26,7 @@
 #pragma once
 
 
+#include <memory>
 #include "Poco/Net/MailMessage.h"
 
 
