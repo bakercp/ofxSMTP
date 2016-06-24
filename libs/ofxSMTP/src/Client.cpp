@@ -173,6 +173,11 @@ void Client::threadedFunction()
                               _settings.getCredentials().getUsername(),
                               _settings.getCredentials().getPassword());
             }
+            else
+            {
+                //this will simply send a helo to the server, required in some circumstances
+                session.login();
+            }
 
             while (getOutboxSize() > 0 && isThreadRunning())
             {
