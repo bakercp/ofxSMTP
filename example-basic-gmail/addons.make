@@ -1,1 +1,3 @@
+ofxPoco
 ofxSMTP
+ofxSSLManager

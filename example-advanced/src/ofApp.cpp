@@ -1,26 +1,8 @@
-// =============================================================================
 //
-// Copyright (c) 2013-2016 Christopher Baker <http://christopherbaker.net>
+// Copyright (c) 2013 Christopher Baker <https://christopherbaker.net>
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+// SPDX-License-Identifier:	MIT
 //
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-//
-// =============================================================================
 
 
 #include "ofApp.h"
@@ -38,12 +20,12 @@ void ofApp::setup()
     senderEmail = "Christopher Baker <info@christopherbaker.net>";
 
     // Load credentials and account settings from an xml file or element.
-    ofx::SMTP::Settings settings = ofx::SMTP::Settings::loadFromXML("example-smtp-account-settings.xml");
-    
+    auto settings = ofxSMTP::Settings::loadFromXML("example-smtp-account-settings.xml");
+
     // Or use the simple gmail settings (also works for any gmail based account)
     // ofx::SMTP::GmailSettings settings("USERNAME@gmail.com","PASSWORD");
 
-    // See SMTP::Settings for extensive configuration options.
+    // See ofxSMTP::Settings for extensive configuration options.
 
     // Pass the settings to the client.
     smtp.setup(settings);
@@ -85,8 +67,7 @@ void ofApp::keyPressed(int key)
         // You can construct complex messages using poco's MailMessage object
         // See http://pocoproject.org/docs/Poco.Net.MailMessage.html
 
-        /// SMTP::Message::SharedPtr simply wraps Poco::Net::MailMessage.
-        ofx::SMTP::Message::SharedPtr message = ofx::SMTP::Message::makeShared();
+        auto message = std::make_shared<Poco::Net::MailMessage>();
 
         // Encode the sender and set it.
         message->setSender(Poco::Net::MailMessage::encodeWord(senderEmail,
@@ -125,13 +106,13 @@ void ofApp::keyPressed(int key)
 }
 
 
-void ofApp::onSMTPDelivery(ofx::SMTP::Message::SharedPtr& message)
+void ofApp::onSMTPDelivery(std::shared_ptr<Poco::Net::MailMessage>& message)
 {
     ofLogNotice("ofApp::onSMTPDelivery") << "Message Sent: " << message->getSubject();
 }
 
 
-void ofApp::onSMTPException(const ofx::SMTP::ErrorArgs& evt)
+void ofApp::onSMTPException(const ofxSMTP::ErrorArgs& evt)
 {
     ofLogError("ofApp::onSMTPException") << evt.getError().displayText();
 
