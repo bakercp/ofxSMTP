@@ -5,4 +5,4 @@ meta:
 	ADDON_TAGS = "email" "smtp"
 	ADDON_URL = http://github.com/bakercp/ofxSMTP
 common:
-		ADDON_DEPENDENCIES = ofxSSLManager
+	ADDON_DEPENDENCIES = ofxSSLManager
