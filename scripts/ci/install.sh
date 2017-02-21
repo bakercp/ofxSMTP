@@ -15,11 +15,11 @@ GH_DEPTH=1
 TRAVIS=true
 APPVEYOR=True
 
-${TRAVIS_BRANCH}
-${APPVEYOR_REPO_BRANCH}
-
-${TRAVIS_REPO_SLUG}
-${APPVEYOR_REPO_NAME}
+# ${TRAVIS_BRANCH}
+# ${APPVEYOR_REPO_BRANCH}
+#
+# ${TRAVIS_REPO_SLUG}
+# ${APPVEYOR_REPO_NAME}
 
 
 # An array of required addons that will be gathered below.
