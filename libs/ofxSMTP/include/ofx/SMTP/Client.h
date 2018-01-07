@@ -27,7 +27,7 @@
 #include "ofx/SMTP/Types.h"
 #include "ofx/SMTP/Events.h"
 #include "ofLog.h"
-`#include "ofSSLManager.h"
+#include "ofSSLManager.h"
 #include "ofThread.h"
 
 
