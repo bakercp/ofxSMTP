@@ -26,7 +26,8 @@
 #include "ofx/SMTP/Settings.h"
 #include "ofx/SMTP/Types.h"
 #include "ofx/SMTP/Events.h"
-#include "ofSSLManager.h"
+#include "ofLog.h"
+`#include "ofSSLManager.h"
 #include "ofThread.h"
 
 
@@ -94,10 +95,10 @@ private:
     Poco::Event _messageReady;
 
     /// \brief A session pointer to be set and reused if permitted.
-    Poco::Net::Session::Ptr _pSession;
+    Poco::Net::Session::Ptr _pSession = nullptr;
 
     /// \brief Is the program initalized via setup?
-    bool _isInited;
+    bool _isInited = false;
 
 };
 

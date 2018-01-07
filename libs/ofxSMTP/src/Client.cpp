@@ -12,9 +12,7 @@ namespace ofx {
 namespace SMTP {
 
 
-Client::Client():
-    _pSession(0),
-    _isInited(false)
+Client::Client()
 {
     ofAddListener(ofEvents().exit, this, &Client::exit);
 }
@@ -214,7 +212,7 @@ void Client::threadedFunction()
 
             ofLogError("Client::threadedFunction") << exc.name() << " : " << exc.displayText();
 
-            if (exc.displayText().find("SSL3_GET_SERVER_CERTIFICATE") != string::npos)
+            if (exc.displayText().find("SSL3_GET_SERVER_CERTIFICATE") != std::string::npos)
             {
                 ofLogError("Client::threadedFunction") << "\t\t" << "This may be because you asked your SSL context to verify the server's certificate, but your certificate authority (ca) file is missing.";
             }
