@@ -13,6 +13,7 @@
 #if POCO_VERSION >= 0x01050000
     #include "Poco/Util/JSONConfiguration.h"
 #endif
+#include "ofLog.h"
 #include "ofUtils.h"
 
 
