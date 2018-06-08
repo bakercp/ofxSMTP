@@ -116,6 +116,15 @@ Poco::Timespan Settings::getMessageSendDelay() const
 {
     return messageSendDelay();
 }
+
+
+Settings Settings::fromJSON(const ofJson& json)
+{
+    Settings s;
+    return s;
+}
+    
+    
 Settings Settings::loadFromXML(const std::string& filename)
 {
     try
@@ -129,88 +138,75 @@ Settings Settings::loadFromXML(const std::string& filename)
         return Settings();
     }
 }
+    
+    
+Settings Settings::loadFromJSON(const std::string& filename)
+{
+    try
+    {
+        Poco::AutoPtr<Poco::Util::JSONConfiguration> pConf(new Poco::Util::JSONConfiguration(ofToDataPath(filename, true)));
+        return load(*pConf);
+    }
+    catch (const Poco::Exception& exc)
+    {
+        ofLogError("Settings::loadFromJSON") << exc.displayText();
+        return Settings();
+    }
+}
 
-//#if POCO_VERSION >= 0x01050000
-//Settings Settings::loadFromJSON(const std::string& filename)
-//{
-//    try
-//    {
-//        Poco::AutoPtr<Poco::Util::JSONConfiguration> pConf(new Poco::Util::JSONConfiguration(ofToDataPath(filename, true)));
-//
-//        Poco::AutoPtr<Poco::Util::AbstractConfiguration> view= pConf->createView("account");
-//
-//        return load(*view);
-//    }
-//    catch (const Poco::Exception& exc)
-//    {
-//        ofLogError("Settings::loadFromJSON") << exc.displayText();
-//        return Settings();
-//    }
-//}
-//#endif
-
-
+    
 Settings Settings::load(const Poco::Util::AbstractConfiguration& config)
 {
-    std::string loginMethodString = config.getString("authentication.type", "AUTH_NONE");
-
-    Credentials::LoginMethod loginMethod = Poco::Net::SMTPClientSession::AUTH_NONE;
-
-    if (0 == Poco::UTF8::icompare(loginMethodString, "AUTH_NONE"))
-    {
-        loginMethod = Poco::Net::SMTPClientSession::AUTH_NONE;
-    }
-    else if (0 == Poco::UTF8::icompare(loginMethodString, "AUTH_LOGIN"))
-    {
-        loginMethod = Poco::Net::SMTPClientSession::AUTH_LOGIN;
-    }
-    else if (0 == Poco::UTF8::icompare(loginMethodString, "AUTH_CRAM_MD5"))
-    {
-        loginMethod = Poco::Net::SMTPClientSession::AUTH_CRAM_MD5;
-    }
-    else if (0 == Poco::UTF8::icompare(loginMethodString, "AUTH_CRAM_SHA1"))
-    {
-        loginMethod = Poco::Net::SMTPClientSession::AUTH_CRAM_SHA1;
-    }
-    else if (0 == Poco::UTF8::icompare(loginMethodString, "AUTH_PLAIN"))
-    {
-        loginMethod = Poco::Net::SMTPClientSession::AUTH_PLAIN;
-    }
-    else
-    {
-        throw Poco::InvalidArgumentException("Unsupported authentication type: " + loginMethodString);
-    }
-
-    std::string encryptionTypeString = config.getString("encryption", "NONE");
-
-    Settings::EncryptionType encryptionType = NONE;
-
-    if (0 == Poco::UTF8::icompare(encryptionTypeString, "NONE"))
-    {
-        encryptionType = NONE;
-    }
-    else if (0 == Poco::UTF8::icompare(encryptionTypeString, "SSLTLS"))
-    {
-        encryptionType = SSLTLS;
-    }
-    else if (0 == Poco::UTF8::icompare(encryptionTypeString, "STARTTLS"))
-    {
-        encryptionType = STARTTLS;
-    }
-    else
-    {
-        throw Poco::InvalidArgumentException("Unsupported encryption type: " + encryptionTypeString);
-    }
-
+    
+    
+    
     return Settings(config.getString("host"),
-                    config.getInt("port", 25),
+                    config.getUInt("port", DEFAULT_SMTP_PORT),
                     Credentials(config.getString("authentication.username", ""),
                                 config.getString("authentication.password", ""),
-                                loginMethod),
-                    encryptionType,
+                                Credentials::from_string(config.getString("authentication.type", "AUTH_NONE"))),
+                    from_string(config.getString("encryption", "NONE")),
                     Poco::Timespan(config.getInt("timeout", 30000) * Poco::Timespan::MILLISECONDS),
                     Poco::Timespan(config.getInt("message-send-delay", 100) * Poco::Timespan::MILLISECONDS));
 }
+    
+    
+Settings::EncryptionType Settings::from_string(const std::string& method)
+{
+    if (method == "NONE")
+    {
+        return EncryptionType::NONE;
+    }
+    else if (method == "SSLTLS")
+    {
+        return EncryptionType::SSLTLS;
+    }
+    else if (method == "STARTTLS")
+    {
+        return EncryptionType::STARTTLS;
+    }
+
+    ofLogError("Settings::from_string") << "Unknown method: " << method;
+    return EncryptionType::NONE;
+}
+
+    
+std::string Settings::to_string(const Settings::EncryptionType& method)
+{
+    switch (method)
+    {
+        case NONE:
+            return "NONE";
+        case SSLTLS:
+            return "SSLTLS";
+        case STARTTLS:
+            return "STARTTLS";
+    }
+    
+    ofLogError("Settings::to_string") << "Unknown method: " << method;
+    return "NONE";
+}
+
 
 
 SSLTLSSettings::SSLTLSSettings(const std::string& host,

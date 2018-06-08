@@ -66,15 +66,37 @@ public:
 
     /// \brief Get number in the outbox.
     /// \returns The number of messages queued in the outbox.
-    std::size_t getOutboxSize(); // const; 
+    std::size_t getOutboxSize() const; 
 
+    /// \returns the current Settings.
+    Settings settings() const;
+    
     /// \brief The event callbacks.
     ClientEvents events;
 
+    /// \brief Register a class to receive notifications for all events.
+    /// \param listener a pointer to the listener class.
+    /// \param priority the listener priority.
+    /// \tparam ListenerClass The listener class.
+    template <class ListenerClass>
+    void registerEvents(ListenerClass* listener, int priority = OF_EVENT_ORDER_AFTER_APP)
+    {
+        ofAddListener(events.onSMTPDelivery, listener, &ListenerClass::onSMTPDelivery, priority);
+        ofAddListener(events.onSMTPException, listener, &ListenerClass::onSMTPException, priority);
+    }
+    
+    /// \brief Unregister a class to receive notifications for all events.
+    /// \param listener a pointer to the listener class.
+    /// \param priority the listener priority.
+    /// \tparam ListenerClass The listener class.
+    template <class ListenerClass>
+    void unregisterEvents(ListenerClass* listener, int priority = OF_EVENT_ORDER_AFTER_APP)
+    {
+        ofRemoveListener(events.onSMTPDelivery, listener, &ListenerClass::onSMTPDelivery, priority);
+        ofRemoveListener(events.onSMTPException, listener, &ListenerClass::onSMTPException, priority);
+    }
+    
 private:
-    /// \brief A typdef for a SharedSocket.
-    typedef std::shared_ptr<Poco::Net::StreamSocket> SharedSocket;
-
     /// \brief Start the thread.
     void start();
 

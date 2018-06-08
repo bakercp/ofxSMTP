@@ -6,6 +6,7 @@
 
 
 #include "ofx/SMTP/Client.h"
+#include "Poco/Net/MailMessage.h"
 
 
 namespace ofx {
@@ -51,7 +52,7 @@ void Client::send(const std::string& to,
                   const std::string& subject,
                   const std::string& body)
 {
-    auto message = Message::makeShared();
+    auto message = std::make_shared<Poco::Net::MailMessage>();
 
     message->setSender(Poco::Net::MailMessage::encodeWord(from, "UTF-8"));
     message->addRecipient(Poco::Net::MailRecipient(Poco::Net::MailRecipient::PRIMARY_RECIPIENT, to));
@@ -91,67 +92,78 @@ void Client::threadedFunction()
 {
     while (isThreadRunning())
     {
-        Poco::Net::SocketAddress socketAddress(_settings.getHost(),
-                                               _settings.getPort());
-        SharedSocket pSocket;
+        using SS = Poco::Net::StreamSocket;
+        using SSS = Poco::Net::SecureStreamSocket;
+        using SMTP = Poco::Net::SMTPClientSession;
+        using SSMTP = Poco::Net::SecureSMTPClientSession;
+        using sSS = std::shared_ptr<SS>;
+        using sSSS = std::shared_ptr<SSS>;
+        using sSMTP = std::shared_ptr<SMTP>;
+
+        sSMTP smtp = nullptr;
 
         try
         {
-            if (Settings::SSLTLS == _settings.getEncryptionType())
+            if (Settings::SSLTLS == _settings.encryptionType())
             {
+                ofLogVerbose("Client::threadedFunction") << "Settings::SSLTLS: " << _settings.host() << ":" << _settings.port();
+                
                 // Create a Poco::Net::SecureStreamSocket pointer.
-                Poco::Net::SecureStreamSocket* _socket = 0;
+                auto _socket = SSS(Poco::Net::SocketAddress(_settings.host(),
+                                                            _settings.port()),
+                                   _settings.host(),
+                                   ofSSLManager::getDefaultClientContext(),
+                                   _pSession);
 
-                // We get a default context from ofSSLManager to make sure
-                // that Poco::Net::SecureStreamSocket doesn't attempt to create
-                // a default context using Poco::Net::SSLManager.
-                Poco::Net::Context::Ptr _clientContext = ofSSLManager::getDefaultClientContext();
+                // Save the session for future use if possible.
+                _pSession = _socket.currentSession();
+                smtp = std::make_shared<SMTP>(_socket);
+                smtp->setTimeout(_settings.timeout());
+                smtp->login();
+            }
+            else if (Settings::STARTTLS == _settings.encryptionType())
+            {
+                ofLogVerbose("Client::threadedFunction") << "Settings::STARTTLS: " << _settings.host() << ":" << _settings.port();
 
-                // Create a Poco::Net::SecureStreamSocket and connect to it.
-                // Use the Default Client context from ofSSLManager and
-                // attempt to use saved Poco::Nett::Session on subsequent
-                // attempts the Client SSL Context and server allow it,
-                // and one was saved during a previous connection.
-                _socket = new Poco::Net::SecureStreamSocket(socketAddress,
-                                                            _clientContext,
-                                                            _pSession);
+                auto _smtp = std::make_shared<SSMTP>(_settings.host(),
+                                                     _settings.port());
+                
+                _smtp->setTimeout(_settings.timeout());
+                _smtp->login();
 
-                // Attempt to save an SSL Client session.
-                _pSession = _socket->currentSession();
+                ofLogVerbose("Client::threadedFunction") << "startTLS ...";
+                if (!_smtp->startTLS(ofSSLManager::getDefaultClientContext()))
+                {
+                    ofLogWarning("Client::threadedFunction") << "startTLS failed.";
+                }
 
-                // Let the shared pointer take ownership of the raw pointer.
-                pSocket = SharedSocket(_socket);
+                smtp = _smtp;
             }
             else
             {
-                pSocket = SharedSocket(new Poco::Net::StreamSocket(socketAddress));
+                ofLogVerbose("Client::threadedFunction") << "Settings::NONE: " << _settings.host() << ":" << _settings.port();
+                smtp = std::make_shared<SMTP>(_settings.host(), _settings.port());
+                smtp->setTimeout(_settings.timeout());
+                smtp->login();
             }
 
-            #if defined(TARGET_OSX)
-            // essential on early versions of Poco!  fixed in 1.4.6p2+ / 1.5.2+
-            // https://github.com/pocoproject/poco/issues/235
-            pSocket->setOption(SOL_SOCKET, SO_NOSIGPIPE, 1); // ignore SIGPIPE
-            #endif
-
-            Poco::Net::SecureSMTPClientSession session(*pSocket);
+            ofLogVerbose("Client::threadedFunction") << "Setting timeout: " << _settings.timeout().totalMilliseconds();
             
-            session.setTimeout(_settings.getTimeout());
-            
-            if (Settings::STARTTLS == _settings.getEncryptionType())
+            if (_settings.credentials().loginMethod() != Poco::Net::SMTPClientSession::AUTH_NONE)
             {
-                // Make the initial connection.
-                session.login();
-                // TODO:
-                // This is supposed to return true on succes, but it doesn't.
-                session.startTLS(ofSSLManager::getDefaultClientContext());
-            }
-
-            if (_settings.getCredentials().getLoginMethod() !=
-                Poco::Net::SMTPClientSession::AUTH_NONE)
-            {
-                session.login(_settings.getCredentials().getLoginMethod(),
-                              _settings.getCredentials().getUsername(),
-                              _settings.getCredentials().getPassword());
+                try
+                {
+                    ofLogVerbose("Client::threadedFunction") << "Logging on with credentials.";
+                    smtp->login(_settings.credentials().loginMethod(),
+                                _settings.credentials().username(),
+                                _settings.credentials().password());
+                
+                }
+                catch (const Poco::Net::SMTPException& exc)
+                {
+                    ofLogError("Client::threadedFunction") << exc.displayText() << ": Check your ofxSMTP::Credentials.";
+                    // There will likely be additional exceptions.
+                }
             }
 
             while (getOutboxSize() > 0 && isThreadRunning())
@@ -161,22 +173,19 @@ void Client::threadedFunction()
                 _outbox.pop_front();
                 mutex.unlock();
 
-                session.sendMessage(*_currentMessage);
+                smtp->sendMessage(*_currentMessage);
 
-                ofNotifyEvent(events.onSMTPDelivery,
-                              _currentMessage,
-                              this);
+                ofNotifyEvent(events.onSMTPDelivery, _currentMessage, this);
 
                 _currentMessage.reset();
 
-                sleep(_settings.getMessageSendDelay().milliseconds());
+                sleep(_settings.messageSendDelay().milliseconds());
             }
 
             ofLogVerbose("Client::threadedFunction") << "Closing session.";
             
-            session.close();
-            pSocket->close();
-
+            if (smtp)
+                smtp->close();
         }
         catch (Poco::Net::SMTPException& exc)
         {
@@ -191,12 +200,11 @@ void Client::threadedFunction()
                 }
             }
 
-            pSocket->close();
+            if (smtp)
+                smtp->close();
 
             ErrorArgs args(exc, _currentMessage);
-            ofNotifyEvent(events.onSMTPException,
-                          args,
-                          this);
+            ofNotifyEvent(events.onSMTPException, args, this);
 
             _currentMessage.reset();
 
@@ -218,9 +226,7 @@ void Client::threadedFunction()
             }
 
             ErrorArgs args(exc, _currentMessage);
-            ofNotifyEvent(events.onSMTPException,
-                          args,
-                          this);
+            ofNotifyEvent(events.onSMTPException, args, this);
 
             _currentMessage.reset();
             
@@ -236,7 +242,7 @@ void Client::threadedFunction()
 
             ofLogError("Client::threadedFunction") << exc.name() << " : " << exc.displayText();
 
-                       ErrorArgs args(exc, _currentMessage);
+            ErrorArgs args(exc, _currentMessage);
             ofNotifyEvent(events.onSMTPException,
                           args,
                           this);
@@ -256,9 +262,7 @@ void Client::threadedFunction()
             ofLogError("Client::threadedFunction") << exc.name() << " : " << exc.displayText();
 
             ErrorArgs args(exc, _currentMessage);
-            ofNotifyEvent(events.onSMTPException,
-                          args,
-                          this);
+            ofNotifyEvent(events.onSMTPException, args, this);
 
             _currentMessage.reset();
             
@@ -276,15 +280,11 @@ void Client::threadedFunction()
 
             ErrorArgs args(Poco::Exception(exc.what()), _currentMessage);
 
-            ofNotifyEvent(events.onSMTPException,
-                          args,
-                          this);
+            ofNotifyEvent(events.onSMTPException, args, this);
 
             _currentMessage.reset();
             
         }
-        
-        ofLogVerbose("Client::threadedFunction") << "Waiting for more messages.";
 
         _messageReady.wait();
         _messageReady.reset();
@@ -292,10 +292,17 @@ void Client::threadedFunction()
 }
 
 
-std::size_t Client::getOutboxSize()// const
+std::size_t Client::getOutboxSize() const
 {
     std::unique_lock<std::mutex> lock(mutex);
     return _outbox.size();
+}
+
+    
+    
+Settings Client::settings() const
+{
+    return _settings;
 }
 
 

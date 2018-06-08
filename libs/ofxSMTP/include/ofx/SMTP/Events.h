@@ -9,6 +9,7 @@
 
 
 #include "Poco/Exception.h"
+#include "Poco/Net/MailMessage.h"
 #include "ofEvents.h"
 
 
@@ -16,44 +17,37 @@ namespace ofx {
 namespace SMTP {
 
 
+/// \brief A class used for event callbacks.
 class ErrorArgs
 {
 public:
-    ErrorArgs(const Poco::Exception& error):
-        _error(error)
-    {
-    }
+    /// \brief Create the ErrorArgs.
+    /// \param error The exception.
+    ErrorArgs(const Poco::Exception& error);
 
-
+    /// \brief Create the ErrorArgs.
+    /// \param error The exception.
+    /// \param message The message.
     ErrorArgs(const Poco::Exception& error,
-              std::shared_ptr<Poco::Net::MailMessage> message):
-        _error(error),
-        _message(message)
-    {
-    }
+              std::shared_ptr<Poco::Net::MailMessage> message);
 
-
-    ~ErrorArgs()
-    {
-    }
-
+    /// \brief Destroy the ErrorArgs.
+    ~ErrorArgs();
 
     /// \returns The error message.
-    const Poco::Exception& getError() const
-    {
-        return _error;
-    }
+    const Poco::Exception& error() const;
+    OF_DEPRECATED_MSG("Use error().", const Poco::Exception& getError() const);
 
-
-    /// \returns A valid pointer to the associated message, iff available.
-    std::shared_ptr<Poco::Net::MailMessage> getMessage() const
-    {
-        return _message;
-    }
+    /// \returns A pointer to the associated message or nullptr if unset.
+    std::shared_ptr<Poco::Net::MailMessage> message() const;
+    OF_DEPRECATED_MSG("Use message().", std::shared_ptr<Poco::Net::MailMessage> getMessage() const);
 
 protected:
+    /// \brief The error.
     const Poco::Exception _error;
-    std::shared_ptr<Poco::Net::MailMessage> _message;
+    
+    /// \brief The associated message.
+    std::shared_ptr<Poco::Net::MailMessage> _message = nullptr;
     
 };
 

@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2013 Christopher Baker <https://christopherbaker.net>
 //
-// SPDX-License-Identifier:	MIT
+// SPDX-License-Identifier:    MIT
 //
 
 
@@ -10,6 +10,7 @@
 
 int main()
 {
-    ofSetupOpenGL(400, 30, OF_WINDOW);
+    ofSetupOpenGL(380, 66, OF_WINDOW);
     return ofRunApp(std::make_shared<ofApp>());
 }
+

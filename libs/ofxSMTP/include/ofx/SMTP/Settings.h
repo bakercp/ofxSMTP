@@ -12,6 +12,8 @@
 #include "Poco/Timespan.h"
 #include "Poco/Util/AbstractConfiguration.h"
 #include "ofx/SMTP/Credentials.h"
+#include "ofConstants.h"
+#include "ofJson.h"
 
 
 namespace ofx {
@@ -33,13 +35,13 @@ public:
         STARTTLS
     };
 
-    ///< \brief Create SMTP Settings.
-    ///< \param host The SMTP server host.
-    ///< \param port The SMTP server port.
-    ///< \param credentials The SMTP Credentials settings.
-    ///< \param encryption The SMTP encryption settings.
-    ///< \param timeout The client timeout.
-    ///< \param messageSendDelay The delay between sending messages.
+    /// \brief Create SMTP Settings.
+    /// \param host The SMTP server host.
+    /// \param port The SMTP server port.
+    /// \param credentials The SMTP Credentials settings.
+    /// \param encryption The SMTP encryption settings.
+    /// \param timeout The client timeout.
+    /// \param messageSendDelay The delay between sending messages.
     Settings(const std::string& host = "",
              uint16_t port = DEFAULT_SMTP_PORT,
              Credentials credentials = Credentials(),
@@ -84,13 +86,10 @@ public:
     /// \returns Settings loaded from a file.
     static Settings loadFromXML(const std::string& filename);
 
-//#if POCO_VERSION >= 0x01050000
-//
-//    /// \brief Load settings from an XML file.
-//    /// \param filename The file name for the XML file.
-//    /// \returns Settings loaded from a file.
-//    static Settings loadFromJSON(const std::string& filename);
-//#endif
+    /// \brief Load settings from an JSON file.
+    /// \param filename The file name for the JSON file.
+    /// \returns Settings loaded from a file.
+    static Settings loadFromJSON(const std::string& filename);
 
     /// \brief Load the settings from a Poco::Util::AbstractConfiguration.
     /// \param config the Poco::Util::AbstractConfiguration.
@@ -109,12 +108,23 @@ public:
         /// \brief Default SMTP Port.
         DEFAULT_SMTP_PORT = 25,
         /// \brief Default Secure SMTP Port.
+        /// \note Gmail uses port 465.
         DEFAULT_SMTP_SSL_PORT = 425,
         /// \brief Default secure STARTTLS SMTP Port.
         DEFAULT_SMTP_STARTTLS_PORT = 587
     };
 
 private:
+    /// \brief Convert a string to an Settings::EncryptionType.
+    /// \param method The method to convert.
+    /// \returns the encryption type.
+    static Settings::EncryptionType from_string(const std::string& method);
+    
+    /// \brief Convert a Settings::EncryptionType to a std::string.
+    /// \param method The method to convert.
+    /// \returns the converted string.
+    static std::string to_string(const Settings::EncryptionType& method);
+
     /// \brief SMTP server host.
     std::string _host;
 
@@ -170,8 +180,6 @@ public:
     virtual ~STARTTLSSettings();
     
 };
-
-
 
 
 } } // namespace ofx::SMTP

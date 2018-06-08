@@ -10,6 +10,8 @@
 
 #include <string>
 #include "Poco/Net/SMTPClientSession.h"
+#include "ofConstants.h"
+#include "ofJson.h"
 
 
 namespace ofx {
@@ -46,7 +48,22 @@ public:
     LoginMethod loginMethod() const;
     OF_DEPRECATED_MSG("Use loginMethod().", LoginMethod getLoginMethod() const);
 
+    /// \brief Create Credentials from json.
+    /// \param json The json to parse.
+    /// \returns credentials.
+    static Credentials fromJson(const ofJson& json);
+    
 private:
+    /// \brief Convert a string to a LoginMethod.
+    /// \param method The method to convert.
+    /// \returns the LoginMethod.
+    static LoginMethod from_string(const std::string& method);
+
+    /// \brief Convert a LoginMethod to a std::string.
+    /// \param method The method to convert.
+    /// \returns the converted string.
+    static std::string to_string(const LoginMethod& method);
+    
     /// \brief The account username.
     std::string _username;
 
@@ -56,6 +73,8 @@ private:
     /// \brief the Account login security method.
     LoginMethod _loginMethod;
 
+    friend class Settings;
+    
 };
 
 

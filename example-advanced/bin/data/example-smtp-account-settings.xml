@@ -5,7 +5,7 @@
     <!-- <encryption>NONE</encryption> -->
     <!-- <encryption>STARTTLS</encryption> -->
 
-    <!-- smtp timeout in milliseconds -->
+    <!-- SMTP timeout in milliseconds -->
     <timeout>30000</timeout>
     <!-- time between messages in milliseconds -->
     <message-send-delay>100</message-send-delay>

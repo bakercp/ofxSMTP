@@ -10,20 +10,19 @@
 
 void ofApp::setup()
 {
-    // Register for SSL Context events.
-    ofSSLManager::registerClientEvents(this);
-
+    // Optionally register for SMTP events. Requires the
+    // onSMTPDelivery(std::shared_ptr<Poco::Net::MailMessage>& message) and
+    // onSMTPException(const ofxSMTP::ErrorArgs& evt) to be pressent.
+    smtp.registerEvents(this);
+    
     // Use the simple gmail settings (also works for any gmail based account).
-    ofx::SMTP::GmailSettings settings("USERNAME@gmail.com","YOUR_GMAIL_PASSWORD");
-
-    // See SMTP::Settings for extensive configuration options.
+    // It is recomended to use a Gmail app password. More information can be
+    // found here: https://myaccount.google.com/apppasswords
+    // See ofx::SMTP::Settings for more extensive configuration options.
+    ofxSMTP::GmailSettings settings("USERNAME@gmail.com","YOUR_GMAIL_APP_PASSWORD");
 
     // Pass the settings to the client.
     smtp.setup(settings);
-
-    // Register event callbacks for message delivery (or failure) events
-    ofAddListener(smtp.events.onSMTPDelivery, this, &ofApp::onSMTPDelivery);
-    ofAddListener(smtp.events.onSMTPException, this, &ofApp::onSMTPException);
 }
 
 
@@ -31,7 +30,7 @@ void ofApp::draw()
 {
     // Print some information about the state of the outbox.
     ofBackground(80);
-    ofDrawBitmapStringHighlight("ofxSMTP: There are " + ofToString(smtp.getOutboxSize()) + " messages in your outbox.", 10,20);
+    ofDrawBitmapStringHighlight("         Press <SPACEBAR> to Send\n\nofxSMTP: There are " + ofToString(smtp.getOutboxSize()) + " messages in your outbox.", 10, 20);
 }
 
 
@@ -39,11 +38,11 @@ void ofApp::keyPressed(int key)
 {
     if(key == ' ')
     {
-        // simple send
-        smtp.send("recipient@example.com",
-                  "USERNAME@gmail.com",
-                  "Sent using ofxSMTP",
-                  "Hello world!");
+        // Send a simple short message.
+        smtp.send("info@christopherbaker.net", // Recipient email.
+                  "USERNAME@gmail.com",        // Sender email.
+                  "I'm trying out ofxSMTP!",   // Subject line.
+                  "It works!");                // Message body.
     }
 }
 
@@ -56,31 +55,10 @@ void ofApp::onSMTPDelivery(std::shared_ptr<Poco::Net::MailMessage>& message)
 
 void ofApp::onSMTPException(const ofxSMTP::ErrorArgs& evt)
 {
-    ofLogError("ofApp::onSMTPException") << evt.getError().displayText();
+    ofLogError("ofApp::onSMTPException") << evt.error().displayText();
 
-    if (evt.getMessage())
+    if (evt.message())
     {
-        ofLogError("ofApp::onSMTPException") << evt.getMessage()->getSubject();
+        ofLogError("ofApp::onSMTPException") << evt.message()->getSubject();
     }
-
-}
-
-
-void ofApp::onSSLClientVerificationError(Poco::Net::VerificationErrorArgs& args)
-{
-    ofLogNotice("ofApp::onClientVerificationError") << std::endl << ofToString(args);
-
-    // If you want to proceed, you must allow the user to inspect the certificate
-    // and set `args.setIgnoreError(true);` if they want to continue.
-
-    // args.setIgnoreError(true);
-
-}
-
-void ofApp::onSSLPrivateKeyPassphraseRequired(std::string& passphrase)
-{
-    // If you want to proceed, you must allow the user to input the assign the private key's
-    // passphrase to the `passphrase` argument.  For example:
-
-    passphrase = ofSystemTextBoxDialog("Enter the Private Key Passphrase", "");
 }
