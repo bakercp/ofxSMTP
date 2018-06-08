@@ -51,23 +51,34 @@ public:
     virtual ~Settings();
 
     /// \returns The SMTP Server host.
-    std::string getHost() const;
-
+    std::string host() const;
+    OF_DEPRECATED_MSG("Use host().", std::string getHost() const);
+    
     /// \returns The SMTP Server port.
-    uint16_t getPort() const;
+    uint16_t port() const;
+    OF_DEPRECATED_MSG("Use port().", uint16_t getPort() const);
 
     /// \returns The SMTP Credential settings.
-    Credentials getCredentials() const;
+    Credentials credentials() const;
+    OF_DEPRECATED_MSG("Use credentials().", Credentials getCredentials() const);
 
     /// \returns The SMTP Encryption settings.
-    EncryptionType getEncryptionType() const;
+    EncryptionType encryptionType() const;
+    OF_DEPRECATED_MSG("Use encryptionType().", EncryptionType getEncryptionType() const);
 
     /// \returns The client timeout.
-    Poco::Timespan getTimeout() const;
+    Poco::Timespan timeout() const;
+    OF_DEPRECATED_MSG("Use timeout().", Poco::Timespan getTimeout() const);
 
     /// \returns The delay between sending message.
-    Poco::Timespan getMessageSendDelay() const;
+    Poco::Timespan messageSendDelay() const;
+    OF_DEPRECATED_MSG("Use messageSendDelay().", Poco::Timespan getMessageSendDelay() const);
 
+    /// \brief Load settings from JSON.
+    /// \param json The JSON.
+    /// \returns Settings loaded from a file.
+    static Settings fromJSON(const ofJson& json);
+    
     /// \brief Load settings from an XML file.
     /// \param filename The file name for the XML file.
     /// \returns Settings loaded from a file.

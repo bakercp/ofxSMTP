@@ -46,42 +46,76 @@ Settings::~Settings()
 }
 
 
-std::string Settings::getHost() const
+std::string Settings::host() const
 {
     return _host;
 }
 
 
-uint16_t Settings::getPort() const
+std::string Settings::getHost() const
+{
+    return host();
+}
+
+
+uint16_t Settings::port() const
 {
     return _port;
 }
 
 
-Credentials Settings::getCredentials() const
+uint16_t Settings::getPort() const
+{
+    return port();
+}
+
+
+Credentials Settings::credentials() const
 {
     return _credentials;
 }
 
+    
+Credentials Settings::getCredentials() const
+{
+    return credentials();
+}
 
-Settings::EncryptionType Settings::getEncryptionType() const
+    
+Settings::EncryptionType Settings::encryptionType() const
 {
     return _encryptionType;
 }
 
 
-Poco::Timespan Settings::getTimeout() const
+Settings::EncryptionType Settings::getEncryptionType() const
+{
+    return encryptionType();
+}
+
+    
+Poco::Timespan Settings::timeout() const
 {
     return _timeout;
 }
 
 
-Poco::Timespan Settings::getMessageSendDelay() const
+Poco::Timespan Settings::getTimeout() const
+{
+    return timeout();
+}
+
+    
+Poco::Timespan Settings::messageSendDelay() const
 {
     return _messageSendDelay;
 }
 
 
+Poco::Timespan Settings::getMessageSendDelay() const
+{
+    return messageSendDelay();
+}
 Settings Settings::loadFromXML(const std::string& filename)
 {
     try

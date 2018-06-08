@@ -28,22 +28,40 @@ Credentials::~Credentials()
 }
 
 
-std::string Credentials::getUsername() const
+std::string Credentials::username() const
 {
     return _username;
 }
 
+    
+std::string Credentials::getUsername() const
+{
+    return username();
+}
 
-std::string Credentials::getPassword() const
+    
+std::string Credentials::password() const
 {
     return _password;
 }
 
 
-Credentials::LoginMethod Credentials::getLoginMethod() const
+std::string Credentials::getPassword() const
+{
+    return password();
+}
+
+    
+Credentials::LoginMethod Credentials::loginMethod() const
 {
     return _loginMethod;
 }
 
+
+Credentials::LoginMethod Credentials::getLoginMethod() const
+{
+    return loginMethod();
+}
+    
     
 } } // namespace ofx::SMTP

@@ -35,13 +35,16 @@ public:
     virtual ~Credentials();
 
     /// \returns The account username.
-    std::string getUsername() const;
+    std::string username() const;
+    OF_DEPRECATED_MSG("Use username().", std::string getUsername() const);
 
     /// \returns The account password.
-    std::string getPassword() const;
+    std::string password() const;
+    OF_DEPRECATED_MSG("Use password().", std::string getPassword() const);
 
     /// \returns The login security method.
-    LoginMethod getLoginMethod() const;
+    LoginMethod loginMethod() const;
+    OF_DEPRECATED_MSG("Use loginMethod().", LoginMethod getLoginMethod() const);
 
 private:
     /// \brief The account username.
