@@ -10,7 +10,6 @@
 
 #include "Poco/Exception.h"
 #include "ofEvents.h"
-#include "ofx/SMTP/Types.h"
 
 
 namespace ofx {

@@ -18,7 +18,6 @@
 #include "ofx/SMTP/Credentials.h"
 #include "ofx/SMTP/GmailSettings.h"
 #include "ofx/SMTP/Settings.h"
-#include "ofx/SMTP/Types.h"
 
 
 namespace ofxSMTP = ofx::SMTP;

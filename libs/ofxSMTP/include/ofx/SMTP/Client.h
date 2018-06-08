@@ -24,7 +24,6 @@
 #include "Poco/Net/SSLManager.h"
 #include "Poco/Net/StreamSocket.h"
 #include "ofx/SMTP/Settings.h"
-#include "ofx/SMTP/Types.h"
 #include "ofx/SMTP/Events.h"
 #include "ofLog.h"
 #include "ofSSLManager.h"
