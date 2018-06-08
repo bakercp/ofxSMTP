@@ -149,26 +149,26 @@ void Client::threadedFunction()
 
             ofLogVerbose("Client::threadedFunction") << "Setting timeout: " << _settings.timeout().totalMilliseconds();
             
-            if (_settings.credentials().loginMethod() != Poco::Net::SMTPClientSession::AUTH_NONE)
+            try
             {
-                try
+                if (_settings.credentials().loginMethod() != Poco::Net::SMTPClientSession::AUTH_NONE)
                 {
-                    ofLogVerbose("Client::threadedFunction") << "Logging on with credentials.";
-                    smtp->login(_settings.credentials().loginMethod(),
-                                _settings.credentials().username(),
-                                _settings.credentials().password());
-                
+                        ofLogVerbose("Client::threadedFunction") << "Logging on with credentials.";
+                        smtp->login(_settings.credentials().loginMethod(),
+                                    _settings.credentials().username(),
+                                    _settings.credentials().password());
+                    
                 }
-                catch (const Poco::Net::SMTPException& exc)
+                else
                 {
-                    ofLogError("Client::threadedFunction") << exc.displayText() << ": Check your ofxSMTP::Credentials.";
-                    // There will likely be additional exceptions.
+                    // This will simply send a helo to the server, required in some circumstances.
+                    smtp->login();
                 }
             }
-            else
+            catch (const Poco::Net::SMTPException& exc)
             {
-                //this will simply send a helo to the server, required in some circumstances
-                session.login();
+                ofLogError("Client::threadedFunction") << exc.displayText() << ": Check your ofxSMTP::Credentials.";
+                // There will likely be additional exceptions.
             }
 
             while (getOutboxSize() > 0 && isThreadRunning())
